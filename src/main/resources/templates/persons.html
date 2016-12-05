@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<title>Persons</title>
+
+    <script>
+        function rowClicked(value) {
+            location.href = "/singleitem?id=" + value;
+        }
+    </script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>Results</h1>
+		</div>
+
+        <div class="row">
+            <!-- <p th:text="'You searched for: ' + ${greeting.content}" /> -->
+            <a href="/">Another Search</a>
+        </div>
+
+		<div class="row">
+			<table class="table">
+				<tr>
+                    <th>Title</th>
+					<th>Full Name</th>
+					<th>Also Known As</th>
+					<th>Nations</th>
+                    <th>States</th>
+                    <th>Cities</th>
+                    <th>Life Dates</th>
+                    <th>Work Dates</th>
+                    <th>Bio Box</th>
+                    <th>Photo Box</th>
+                    <th>Photo Folders</th>
+                    <th>Album Box</th>
+                    <th>Fragile Photo Box</th>
+                    <th>Audiovisual Box</th>
+                    <th>Oversize Photo Box</th>
+                    <th>ID</th>
+				</tr>
+				<tr th:each="person : ${persons}"  style="cursor: pointer"
+                    th:onclick="'javascript:rowClicked(\'' + ${person.personId} + '\');'">
+                    <td th:text="${person.title}"></td>
+					<td th:text="${person.firstName}"></td>
+					<td th:text="${person.lastname}"></td>
+					<td th:text="${person.nations}"></td>
+                    <td th:text="${person.states}"></td>
+                    <td th:text="${person.cities}"></td>
+                    <td th:text="${person.lifedates}"></td>
+                    <td th:text="${person.workdates}"></td>
+                    <td th:text="${person.biobox}"></td>
+                    <td th:text="${person.photobox}"></td>
+                    <td th:text="${person.photofolders}"></td>
+                    <td th:text="${person.albumbox}"></td>
+                    <td th:text="${person.fragilebox}"></td>
+                    <td th:text="${person.audiovisualbox}"></td>
+                    <td th:text="${person.oversizebox}"></td>
+                    <td th:text="${person.personId}"></td>
+
+                </tr>
+			</table>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-1">
+				<select class="form-control pagination" id="pageSizeSelect">
+					<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+				</select>
+			</div>
+			<div th:if="${persons.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+				<ul class="pagination">
+					<li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li>
+					<li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content})}">&larr;</a></li>
+					<li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+						th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${page}, content=${greeting.content})}" th:text="${page}"></a></li>
+					<li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, content=${greeting.content})}">&rarr;</a></li>
+					<li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize},page=${persons.getTotalPages()})}">&raquo;</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
