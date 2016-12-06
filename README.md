@@ -1,12 +1,13 @@
 # palmquist
 
-This webapp is a rewrite of the Beinecke Library legacy application Palmquist. The stack is Spring Boot/MVC/Data.
-The project can be built using Maven, and the resulting .war file can be dropped into Tomcat.
+This webapp is a rewrite of the Beinecke Library legacy application Palmquist. 
+The project can be built using Maven, and the resulting .war file can be dropped into Tomcat (or just launched with `java`).
+The stack is Spring Boot/MVC/Data.
 
 Installation
 --------------
 
-Install Maven (and JDK). Download sqljdbc4 from [Microsoft] (https://www.microsoft.com/en-us/download/details.aspx?id=11774).
+Install [Maven](https://maven.apache.org/) (and JDK). Download sqljdbc4 from [Microsoft] (https://www.microsoft.com/en-us/download/details.aspx?id=11774).
 
 * Build and Launch
 ```sh
