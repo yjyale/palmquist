@@ -59,6 +59,23 @@ public class Person {
     @Column (name  = "`Oversize Photo Box`")
     private String oversizebox;
 
+    // TODO (move fields elsewhere)
+    @Transient
+    private String titleOption; // for the drop down
+
+    @Transient
+    private String fullNameOption;
+
+    @Transient
+    private String cityOption;
+
+    @Transient
+    private String stateOption;
+
+    @Transient
+    private String nationOption;
+
+
     public Person() {
     }
 
@@ -202,5 +219,43 @@ public class Person {
         this.title = title;
     }
 
+    public String getTitleOption() {
+        return titleOption;
+    }
 
+    public void setTitleOption(String titleOption) {
+        this.titleOption = titleOption;
+    }
+
+    public String getFullNameOption() {
+        return fullNameOption;
+    }
+
+    public void setFullNameOption(String fullNameOption) {
+        this.fullNameOption = fullNameOption;
+    }
+
+    public String getCityOption() {
+        return cityOption;
+    }
+
+    public void setCityOption(String cityOption) {
+        this.cityOption = cityOption;
+    }
+
+    public String getStateOption() {
+        return stateOption;
+    }
+
+    public void setStateOption(String stateOption) {
+        this.stateOption = stateOption;
+    }
+
+    public String getNationOption() {
+        return nationOption;
+    }
+
+    public void setNationOption(String nationOption) {
+        this.nationOption = nationOption;
+    }
 }

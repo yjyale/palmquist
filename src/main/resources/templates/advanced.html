@@ -33,12 +33,48 @@
             <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
 
             <form action="#" th:action="@{/singleitem}" th:object="${person}" method="get">
-                <p>Title <input type="text" th:field="*{title}" /></p>
-                <p>Full Name <input type="text" th:field="*{fullName}" /></p>
-                <p>Also Known As <input type="text" th:field="*{alias}" /></p>
-                <p>Nations <input type="text" th:field="*{nations}" /></p>
-                <p>States <input type="text" th:field="*{states}" /></p>
-                <p>Cities <input type="text" th:field="*{cities}" /></p>
+                <p>
+                    <select th:field="*{titleOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+
+                    Title <input type="text" th:field="*{title}" />
+                </p>
+                <p>
+                    <select th:field="*{fullNameOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    Full Name <input type="text" th:field="*{fullName}" /></p>
+                <p>
+                    <select th:field="*{fullNameOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    Also Known As <input type="text" th:field="*{alias}" /></p>
+                <p>
+                    <select th:field="*{nationOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    Nations <input type="text" th:field="*{nations}" /></p>
+                <p>
+                    <select th:field="*{stateOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select> States <input type="text" th:field="*{states}" /></p>
+                <p>
+                    <select th:field="*{cityOption}">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select> Cities <input type="text" th:field="*{cities}" /></p>
 
                 <p><input type="submit" value="Submit" /></p>
             </form>

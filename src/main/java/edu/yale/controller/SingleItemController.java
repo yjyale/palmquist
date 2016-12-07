@@ -22,8 +22,18 @@ public class SingleItemController {
         this.personService = studentService;
     }
 
+    /*
+        The request looks something like:
+        http://localhost:8080/singleitem?title=&fullName=Bard&alias=&nations=&states=&cities=
+     */
     @RequestMapping(value = "/singleitem", method = RequestMethod.GET)
-    public String greetingForm(Model model,  @RequestParam(value = "id", required = false) Long id, @RequestParam(value="fullName", required = false)  String fullName) {
+    public String greetingForm(final Model model,
+                               @RequestParam(value = "id", required = false) Long id,
+                               @RequestParam(value="fullName", required = false)  String fullName,
+                               @RequestParam(value="title", required = false) String title,
+                               @RequestParam(value="alias", required = false) String alias,
+                               @RequestParam(value="cities", required = false) String cities,
+                               @RequestParam(value="states", required = false) String states) {
 
         Person person = new Person();
 
