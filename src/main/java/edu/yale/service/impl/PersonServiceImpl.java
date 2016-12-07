@@ -25,6 +25,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Page<Person> findByPersonId(long id, Pageable pageable) {
+        return personRepository.findByPersonId(id, pageable);
+    }
+
+    @Override
     public Page<Person> findByAlias(String str, Pageable pageable) {
         return personRepository.findByAlias(str, pageable);
     }
