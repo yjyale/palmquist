@@ -1,90 +1,84 @@
 package edu.yale.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Represents a photographer
  */
 @Entity
+@Table (name = "Palmquist")
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "ID")
     private long personId;
 
     @Column
     private String title;
 
-    @Column
-    private String firstName;
+    @Column (name  = "Full_Name")
+    private String fullName;
 
-    //private String lastName;
-
-    //TODO
-    private String lastname;
-
-    //TODO remove
-    private int age;
-
-    @Column
+    @Column (name  = "`Also known as Description`")
     private String alias;
 
-    @Column
+    @Column (name = "State")
     private String states;
 
-    @Column
+    @Column (name = "Cities")
     private String cities;
 
-    @Column
+    @Column (name  = "Nations")
     private String nations;
 
-    @Column
+    @Column (name  = "`Life Dates`")
     private String lifedates;
 
-    @Column
+    @Column (name  = "`Work Dates`")
     private String workdates;
 
-    @Column
+    @Column (name  = "`Bio Box`")
     private String biobox;
 
-    @Column
+    @Column (name  = "`Photo Box`")
     private String photobox;
 
-    @Column
+    @Column (name  = "`Photo Folders`")
     private String photofolders;
 
-    @Column
+    @Column (name  = "`Album Box`")
     private String albumbox;
 
-    @Column
+    @Column (name  = "`Fragile Photo Box`")
     private String fragilebox;
 
-    @Column
+    @Column (name  = "`Audiovisual Box`")
     private String audiovisualbox;
 
-    @Column
+    @Column (name  = "`Oversize Photo Box`")
     private String oversizebox;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastname = lastName;
-        this.age = age;
+    public Person(String fullName) {
+        this.fullName = fullName;
     }
 
-    public Person(int age, String alias, String cities, String firstName, String lastname, String states) {
-        this.age = age;
+    public Person(int age, String alias, String cities, String fullName, String states) {
         this.alias = alias;
         this.cities = cities;
-        this.firstName = firstName;
-        this.lastname = lastname;
+        this.fullName = fullName;
         this.states = states;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public long getPersonId() {
@@ -95,30 +89,6 @@ public class Person {
         this.personId = studentId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public String getAlias() {
         return alias;
@@ -232,27 +202,5 @@ public class Person {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "age=" + age +
-                ", personId=" + personId +
-                ", title='" + title + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", alias='" + alias + '\'' +
-                ", states='" + states + '\'' +
-                ", cities='" + cities + '\'' +
-                ", nations='" + nations + '\'' +
-                ", lifedates='" + lifedates + '\'' +
-                ", workdates='" + workdates + '\'' +
-                ", biobox='" + biobox + '\'' +
-                ", photobox='" + photobox + '\'' +
-                ", photofolders='" + photofolders + '\'' +
-                ", albumbox='" + albumbox + '\'' +
-                ", fragilebox='" + fragilebox + '\'' +
-                ", audiovisualbox='" + audiovisualbox + '\'' +
-                ", oversizebox='" + oversizebox + '\'' +
-                '}';
-    }
+
 }

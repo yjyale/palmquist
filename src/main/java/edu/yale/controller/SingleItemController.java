@@ -13,7 +13,7 @@ public class SingleItemController {
     public String greetingForm(Model model) {
         // FIXME: remove the stub
         Person person = new Person();
-        person.setLastname("ajram");
+        person.setFullName("Nancy Ajram");
         person.setAlbumbox("10");
         person.setCities("Dubai");
         person.setNations("UAE");

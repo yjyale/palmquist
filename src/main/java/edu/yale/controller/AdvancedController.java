@@ -18,7 +18,7 @@ public class AdvancedController {
         // FIXME: remove the stub
 
         Person person1 = new Person();
-        person1.setLastname("ajram");
+        person1.setFullName("Nancy Ajram");
         person1.setAlbumbox("10");
         person1.setCities("Dubai");
         person1.setNations("UAE");

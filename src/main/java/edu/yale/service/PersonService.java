@@ -12,7 +12,7 @@ public interface PersonService {
      * @param pageable
      * @return {@link Page} instance
      */
-    Page<Person> findByLastname(String lastName, Pageable pageable);
+    Page<Person> findByFullname(String fullName, Pageable pageable);
 
     Page<Person> findByTitle(String str, Pageable pageable);
     Page<Person> findByAlias(String str, Pageable pageable);

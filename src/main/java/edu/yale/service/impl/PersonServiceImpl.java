@@ -20,8 +20,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Transactional
-    public Page<Person> findByLastname(String lastname, Pageable pageable) {
-        return personRepository.findByLastname(lastname, pageable);
+    public Page<Person> findByFullname(String fullName, Pageable pageable) {
+        return personRepository.findByFullName(fullName, pageable);
     }
 
     @Override

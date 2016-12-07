@@ -25,6 +25,8 @@ public class DatabaseInitializer {
     @PostConstruct
     public void populateDatabase() {
         // FIXME remove the sample/random data
+
+        /*
         Person firstPerson = new Person("Michelle", "Obama", 40);
         Person firstPerson1 = new Person("Michelle", "Obama", 41);
         Person firstPerson2 = new Person("Michelle", "Obama", 42);
@@ -39,5 +41,6 @@ public class DatabaseInitializer {
 
         personService.save(Arrays.asList(firstPerson, firstPerson1, firstPerson2,
                 firstPerson3, firstPerson4, firstPerson5, firstPerson6, secondPerson, fourthPerson, nancy));
+        */
     }
 }

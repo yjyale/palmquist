@@ -24,10 +24,9 @@
         <div class="col-md-12">
             <h2>Details</h2>
             <p th:text="' Title: ' + ${person.title}" />
-            <p th:text=" 'Full Name: ' + ${person.firstName}"/>
-            <p th:text="'Last name: ' + ${person.lastname}" />
+            <p th:text="'Full Name: ' + ${person.fullName}" />
 
-            <p th:text=" 'Also Known As: ' + ${person.lastname}" />
+            <p th:text=" 'Also Known As: ' + ${person.alias}" />
             <p th:text=" 'Nations: ' + ${person.nations}"/>
             <p th:text=" 'States: ' + ${person.states}"/>
             <p th:text=" 'Cities: ' + ${person.cities}"/>
