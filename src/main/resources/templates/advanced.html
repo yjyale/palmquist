@@ -1,61 +1,130 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Form</title>
+    <title>Advanced Search | Palmquist Collection: Women in Photography</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
     <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />
 </head>
 <body>
 
-<!-- <h1>Palmquist</h1> -->
+<div class="logo"><img src='/images/yale-black.png' alt="Yale University Library"></img></div>
 
 <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-    <a class="navbar-brand" href="#">Palmquist</a>
+    <a class="navbar-brand" href="#"><img src="/images/logo-desktop.png" alt="Beinecke Rare Book and Manuscript Library"></img></a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">visit <span class="sr-only">(current)</span></a>
         </li>
-        <!--
         <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">research</a>
         </li>
-        -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">collections</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">exhibitions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">programs &amp; events</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">about</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">renovation</a>
+        </li>
     </ul>
 </nav>
 
 <div class="container">
     <div class="row">
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" id="toggle-search" href="/">Quick Search <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="toggle-search" href="/advanced">Advanced <span class="sr-only"></span></a>
+                </li>
+            </ul>
+        </div>
         <div class="col-md-12">
             <h2>Advanced Search</h2>
-            <p> Enter terms in any of the fields below. </p>
+            <p> Enter search terms in any of the fields below. </p>
 
             <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
 
+        <div class="advanced-form">   
             <form action="#" th:action="@{/singleitem}" th:object="${person}" method="get">
                 <!-- <p>Id: <input type="text" th:field="*{id}" /></p> -->
-                <p>Title <input type="text" th:field="*{title}" /></p>
-                <p>Full Name <input type="text" th:field="*{lastname}" /></p>
-                <p>Also Known As <input type="text" th:field="*{alias}" /></p>
-                <p>Nations <input type="text" th:field="*{nations}" /></p>
-                <p>States <input type="text" th:field="*{states}" /></p>
-                <p>Cities <input type="text" th:field="*{cities}" /></p>
-
-                <p><input type="submit" value="Submit" /></p>
+                <div class="form-fld col-sm-8"> 
+                    <select class="form-control col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select> 
+                    <span class="col-xs-2">Title</span>  
+                    <span class="col-xs-6"><input type="text" th:field="*{title}" placeholder="Title" /></span>
+                </div>
+                <div class="form-fld col-sm-8">
+                    <select class="form-control col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    <span class="col-xs-3">Full Name</span>
+                    <span class="col-xs-3"><input type="text" th:field="*{lastname}" placeholder="Full Name" /></span>
+                </div> 
+                <div class="form-fld col-sm-8"> 
+                    <select class="col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    <span class="col-xs-3">Also Known As</span>
+                    <span class="col-xs-3"><input type="text" th:field="*{alias}" /></span>
+                </div>
+                <div class="form-fld col-sm-8">
+                    <select class="col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>
+                    <span class="col-xs-3">Nations</span>
+                    <span class="col-xs-3"> <input type="text" th:field="*{nations}" /></span>
+                </div>
+                <div class="form-fld col-sm-8">
+                    <select class="col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select>   
+                    <span class="col-xs-3">States</span>
+                    <span class="col-xs-3"> <input type="text" th:field="*{states}" /></span>
+                </div>
+                <div class="form-fld col-sm-8"> 
+                    <select class="col-xs-2">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="NOT">NOT</option>
+                    </select> 
+                    <span class="col-xs-3">Cities</span>
+                    <span class="col-xs-3"><input type="text" th:field="*{cities}" /></span>    
+                </div>
+                <div class="form-fld col-sm-8">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
+                </div>
             </form>
+          </div>
         </div>
 
     </div>
-
-    <hr/>
-
-    <footer>
-        <p>&copy; Yale University Library</p>
+    <footer class="navbar-fixed-bottom">
+        <p>&copy;2016 Yale University Beinecke Rare Book and Manuscript Library. All rights reserved.</p>
     </footer>
 </div> <!-- /container -->
-
-
-
 
 </body>
 </html>

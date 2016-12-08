@@ -1,27 +1,43 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Form</title>
+    <title>Quick Search | Palmquist Collection: Women in Photography</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
     <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />
 </head>
 <body>
 
-<!-- <h1>Palmquist</h1> -->
+<div class="logo"><img src='/images/yale-black.png' alt="Yale University Library"></img></div>
 
 <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-    <a class="navbar-brand" href="#">Palmquist</a>
-    <ul class="nav navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="/advanced">Advanced <span class="sr-only">(current)</span></a>
-        </li>
-        <!--
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-        </li>
-        -->
-    </ul>
+    <div class="row col-md-8">
+        <a class="navbar-brand" href="#"><img src="/images/logo-desktop.png" alt="Beinecke Rare Book and Manuscript Library"></img></a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">visit <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">research</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">collections</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">exhibitions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">programs &amp; events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">about</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">renovation</a>
+            </li>
+        </ul>
+    </div>    
 </nav>
 
 <!--
@@ -36,30 +52,47 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Quick Search</h2>
-            <p> (Searches the title, full name, and A.K.A. Description fields) </p>
-
-            <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
-
-            <form action="#" th:action="@{/persons}" th:object="${greeting}" method="get">
-                <!-- <p>Id: <input type="text" th:field="*{id}" /></p> -->
-                <p><input type="text" th:field="*{content}" /></p>
-                <p><input type="submit" value="Submit" /> </p>
-            </form>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" id="toggle-search" href="/">Quick Search <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="toggle-search" href="/advanced">Advanced <span class="sr-only"></span></a>
+                </li>
+            </ul>
         </div>
+        <div class="col-sm-12">
+            <h2>Palmquist Collection: Women in Photography</h2>
+            <p><a href="http://hdl.handle.net/10079/fa/beinecke.wipa" target= "_blank">Read more about this collection</a></p>
 
+            <h3>Quick Search</h3>
+            <p> (Searches the title, full name, and A.K.A. Description fields) </p>
+            <div class="col-md-8">
+                <form class="form-inline" action="#" th:action="@{/persons}" th:object="${greeting}" method="get">
+                      <div class="form-group">
+                        <label class="sr-only">Search Palmquist collection</label>
+                        <select class="form-control">
+                            <option value="ALL of these keywords">ALL of these keywords</option>
+                            <option value="ANY of these keywords">ANY of these keywords</option>
+                            <option value="This entire phrase">This entire phrase</option>
+                        </select> 
+                      </div>
+                      <div class="input-group col-xs-8">
+                        <label for="Search" class="sr-only">Search</label>
+                        <input type="text" class="form-control" placeholder="Search the collection" th:field="*{content}" />
+                      </div>
+                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </form>  
+            </div>      
+        </div>
     </div>
 
-    <hr/>
-
-    <footer>
-        <p>&copy; Yale University Library</p>
+    <footer class="navbar-fixed-bottom">
+        <p>&copy;2016 Yale University Beinecke Rare Book and Manuscript Library. All rights reserved.</p>
     </footer>
+    
 </div> <!-- /container -->
-
-
-
 
 </body>
 </html>
