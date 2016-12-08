@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>People | Palmquist Collection: Women in Photography</title>
+<title>Persons | Palmquist Collection: Women in Photography</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/style.css}" rel="stylesheet" />
@@ -16,34 +16,43 @@
 </head>
 <body>
 
-<div class="logo"><img src='/images/yale-black.png' alt="Yale University Library"></img></div>
+<div class="logo">
+    <div class="container">
+        <img src='/images/yale-black.png' alt="Yale University Library"></img>
+    </div>    
+</div>
 
 <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-    <a class="navbar-brand" href="#"><img src="/images/logo-desktop.png" alt="Beinecke Rare Book and Manuscript Library"></img></a>
-    <ul class="nav navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">visit <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">research</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">collections</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">exhibitions</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">programs &amp; events</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">about</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">renovation</a>
-        </li>
-    </ul>
-</nav>	
+   <div class="container"> 
+    <div class="row col-md-8">
+        <a class="navbar-brand" href="#"><img src="/images/logo-desktop.png" alt="Beinecke Rare Book and Manuscript Library"></img></a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">visit <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">research</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">collections</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">exhibitions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">programs &amp; events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">about</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">renovation</a>
+            </li>
+        </ul>
+    </div>
+  </div>    
+</nav>
+
 	<div class="container">
 		<div class="row">
 			<h1>Results</h1>
