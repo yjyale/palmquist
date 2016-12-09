@@ -28,10 +28,18 @@ public interface PersonService {
 
     Page<Person> findByTitle(String str, Pageable pageable);
     Page<Person> findByFullname(String fullName, Pageable pageable);
+
+    Page<Person> findByFullnameContaining(String fullName, Pageable pageable);
     Page<Person> findByAlias(String str, Pageable pageable);
+    Page<Person> findByAliasContaining(String str, Pageable pageable);
+
     Page<Person> findByNations(String str, Pageable pageable);
+    Page<Person> findByNationsContaining(String str, Pageable pageable);
+
     Page<Person> findByStates(String str, Pageable pageable);
+    Page<Person> findByStatesContaining(String str, Pageable pageable);
     Page<Person> findByCities(String str, Pageable pageable);
+    Page<Person> findByCitiesContaining(String str, Pageable pageable);
 
     /*
 

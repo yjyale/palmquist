@@ -60,6 +60,31 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Page<Person> findByAliasContaining(String str, Pageable pageable) {
+        return personRepository.findByAliasContaining(str, pageable);
+    }
+
+    @Override
+    public Page<Person> findByNationsContaining(String str, Pageable pageable) {
+        return personRepository.findByNationsContaining(str, pageable);
+    }
+
+    @Override
+    public Page<Person> findByStatesContaining(String str, Pageable pageable) {
+        return personRepository.findByStatesContaining(str, pageable);
+    }
+
+    @Override
+    public Page<Person> findByCitiesContaining(String str, Pageable pageable) {
+        return personRepository.findByCitiesContaining(str, pageable);
+    }
+
+    @Override
+    public Page<Person> findByFullnameContaining(String fullName, Pageable pageable) {
+        return personRepository.findByFullNameContaining(fullName, pageable);
+    }
+
+    @Override
     public Page<Person> findByTitleAndFullnameAndAliasAndNationsAndStatesAndCities(String str, String str1, String str2, String str3, String str4, String str5, Pageable pageable) {
         return personRepository.findByTitleAndFullNameAndAliasAndNationsAndStatesAndCities(str, str1, str2, str3, str4, str5, pageable);
     }

@@ -16,10 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
+
+
 @Controller
 public class SingleItemController {
 
     private PersonService personService;
+
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = {5, 10, 20};
 
     @Autowired
     public SingleItemController(PersonService studentService) {
@@ -32,6 +39,8 @@ public class SingleItemController {
      */
     @RequestMapping(value = "/singleitem", method = RequestMethod.GET)
     public String greetingForm(final Model model,
+                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                               @RequestParam(value = "page", required = false) Integer page,
                                @RequestParam(value = "id", required = false) Long id,
                                @RequestParam(value="fullName", required = false)  String fullName,
                                @RequestParam(value="title", required = false) String title,
@@ -72,6 +81,16 @@ public class SingleItemController {
             //TODO add not queries
 
             if (singleField(fields)) { // only need to take care of 'NOT'
+
+                // Evaluate page size. If requested parameter is null, return initial
+                // page size
+                int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+                // Evaluate page. If requested parameter is null or less than 0 (to
+                // prevent exception), return initial size. Otherwise, return value of
+                // param. decreased by 1.
+                int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+
                 System.out.println("Single  field search");
 
                 Page<Person> persons = null;
@@ -80,9 +99,9 @@ public class SingleItemController {
                     if (fullNameOption.equals(LogicOperator.NOT.name())) {
 
                     } else { //AND
-                        persons = personService.findByFullname(fullName, new PageRequest(0, 1));
+                        persons = personService.findByFullnameContaining(fullName, new PageRequest(0, 10));
                         //person = persons.iterator().next();
-                        //System.out.println(person);
+                        System.out.println(persons.getNumber());
 
                     }
                 } else if (fields.containsKey(SearchFields.Title)) {
@@ -96,28 +115,28 @@ public class SingleItemController {
                     if (aliasOption.equals(LogicOperator.NOT.name())) {
 
                     } else {
-                        persons = personService.findByAlias(alias, new PageRequest(0, 1));
+                        persons = personService.findByAliasContaining(alias, new PageRequest(0, 1));
                         //person = persons.iterator().next();
                     }
                 } else if (fields.containsKey(SearchFields.City)) {
                     if (citiesOption.equals(LogicOperator.NOT.name())) {
 
                     } else {
-                        persons = personService.findByCities(cities, new PageRequest(0, 1));
+                        persons = personService.findByCitiesContaining(cities, new PageRequest(0, 1));
                         //person = persons.iterator().next();
                     }
                 } else if (fields.containsKey(SearchFields.State)) {
                     if (statesOption.equals(LogicOperator.NOT.name())) {
 
                     } else {
-                        persons = personService.findByStates(states, new PageRequest(0, 1));
+                        persons = personService.findByStatesContaining(states, new PageRequest(0, 1));
                         //person = persons.iterator().next();
                     }
                 } else if (fields.containsKey(SearchFields.Nation)) {
                     if (nationsOption.equals(LogicOperator.NOT.name())) {
 
                     } else {
-                        persons = personService.findByNations(nations, new PageRequest(0, 1));
+                        persons = personService.findByNationsContaining(nations, new PageRequest(0, 1));
                         //person = persons.iterator().next();
                     }
                 }
@@ -418,12 +437,12 @@ public class SingleItemController {
 
             //System.out.println("The list is:" + personsCopy.toString());
 
-            final Page<Person> page = new PageImpl<>(personsCopy);
+            final Page<Person> page1 = new PageImpl<>(personsCopy);
 
             //System.out.println(page.iterator().next());
 
-            final Pager pager = new Pager(page.getTotalPages(), page.getNumber(), 5);
-            model.addAttribute("persons", page);
+            final Pager pager = new Pager(page1.getTotalPages(), page1.getNumber(), 5);
+            model.addAttribute("persons", page1);
             model.addAttribute("selectedPageSize",100);
             model.addAttribute("pageSizes", 10);
             model.addAttribute("pager", pager);

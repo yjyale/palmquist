@@ -51,7 +51,7 @@ public class PersonController {
         // param. decreased by 1.
         int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
-        Page<Person> persons = personService.findByFullname(greeting.getContent(), new PageRequest(evalPage, evalPageSize));
+        Page<Person> persons = personService.findByFullnameContaining(greeting.getContent(), new PageRequest(evalPage, evalPageSize));
         Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
 
         modelAndView.addObject("persons", persons);
