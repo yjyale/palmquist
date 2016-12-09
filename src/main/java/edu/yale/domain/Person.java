@@ -75,6 +75,9 @@ public class Person {
     @Transient
     private String nationOption;
 
+    @Transient
+    private String aliasOption;
+
 
     public Person() {
     }
@@ -257,5 +260,40 @@ public class Person {
 
     public void setNationOption(String nationOption) {
         this.nationOption = nationOption;
+    }
+
+    public String getAliasOption() {
+        return aliasOption;
+    }
+
+    public void setAliasOption(String aliasOption) {
+        this.aliasOption = aliasOption;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", title='" + title + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", alias='" + alias + '\'' +
+                ", states='" + states + '\'' +
+                ", cities='" + cities + '\'' +
+                ", nations='" + nations + '\'' +
+                ", lifedates='" + lifedates + '\'' +
+                ", workdates='" + workdates + '\'' +
+                ", biobox='" + biobox + '\'' +
+                ", photobox='" + photobox + '\'' +
+                ", photofolders='" + photofolders + '\'' +
+                ", albumbox='" + albumbox + '\'' +
+                ", fragilebox='" + fragilebox + '\'' +
+                ", audiovisualbox='" + audiovisualbox + '\'' +
+                ", oversizebox='" + oversizebox + '\'' +
+                ", titleOption='" + titleOption + '\'' +
+                ", fullNameOption='" + fullNameOption + '\'' +
+                ", cityOption='" + cityOption + '\'' +
+                ", stateOption='" + stateOption + '\'' +
+                ", nationOption='" + nationOption + '\'' +
+                '}';
     }
 }

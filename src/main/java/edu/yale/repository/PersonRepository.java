@@ -18,4 +18,16 @@ public interface PersonRepository extends PagingAndSortingRepository<Person, Lon
     Page<Person> findByNations(String str, Pageable pageable);
     Page<Person> findByStates(String str, Pageable pageable);
     Page<Person> findByCities(String str, Pageable pageable);
+
+    Page<Person> findByTitleAndFullNameAndAliasAndNationsAndStates(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+    Page<Person> findByTitleAndAndAliasAndNationsAndStatesAndCities(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+    Page<Person> findByFullNameAndAliasAndNationsAndStatesAndCities(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+    Page<Person> findByTitleAndAndFullNameAndNationsAndStatesAndCities(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+    Page<Person> findByTitleAndAndFullNameAndAliasAndStatesAndCities(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+    Page<Person> findByTitleAndAndFullNameAndAliasAndNationsAndCities(String str, String str1, String str2, String str3, String str4, Pageable pageable);
+
+
+    // 6 columnns
+    Page<Person> findByTitleAndFullNameAndAliasAndNationsAndStatesAndCities(String str, String str1, String str2, String str3, String str4, String str5, Pageable pageable);
+
 }
