@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------*/
 /* ----- Customizations for Beinecke legacy collections and databases ----- */
 /* ------------------------------------------------------------------------ */
+body {padding-bottom: 70px;}
 
 .navbar.navbar-static-top.navbar-dark.bg-inverse, footer.navbar-fixed-bottom {
   background-color: #333;
@@ -23,6 +24,7 @@ ul.nav.navbar-nav {margin-left: 1em;}
 
 div.row.col-md-8 {padding: 1em 0 1em 0;}
 .col-md-6, .col-sm-12, .col-md-8 {padding-left: 0px;}
+ul.ftr-links {padding: 0px; margin: 0px; float: left;}
 
 input#content.form-control {border-radius: 0px;}
 
@@ -60,7 +62,25 @@ ul > li > a.pageLink:hover {color: #777;}
   border-color: #e24911;
 }
 
-footer p {color: #fff;}
+footer p,
+footer ul > li > a {
+  color: #fff; 
+  font-size: 11px;
+}
+
+footer ul li {
+  display: inline-block;
+}
+
+footer.navbar-fixed-bottom {padding: 2em 0 4em 0;}
+
+footer p, footer ul li {text-align: justify;}
+ul.ftr-links > li > a:after {
+  content: " | ";
+  color: #ccc;
+  display: inline-block;
+  margin-left: .3em;
+}
 
 .details.col-xs-4 {margin-top: 2em;}
 .advanced-form {margin-top: 2em;}
