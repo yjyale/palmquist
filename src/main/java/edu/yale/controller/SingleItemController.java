@@ -46,105 +46,106 @@ public class SingleItemController {
                                @RequestParam(value="stateOption", required = false) String statesOption,
                                @RequestParam(value="nationOption", required = false) String nationsOption) {
 
-        Person person = new Person();
+        try {
+            Person person = new Person();
 
-        System.out.println("PRocessing");
+            System.out.println("PRocessing");
 
-        if (id != null) {
-            Page<Person> persons = personService.findByPersonId(id, new PageRequest(0, 1));
-            person = persons.iterator().next();
-            model.addAttribute("person", person);
-            return "singleitem";
+            if (id != null) {
+                Page<Person> persons = personService.findByPersonId(id, new PageRequest(0, 1));
+                person = persons.iterator().next();
+                model.addAttribute("person", person);
+                return "singleitem";
 
-        }
+            }
 
-        System.out.println("AND title option:" + titleOption);
-        System.out.println("AND name option:" + fullNameOption);
+            System.out.println("AND title option:" + titleOption);
+            System.out.println("AND name option:" + fullNameOption);
 
 
-        // Build search options
-        Map<SearchFields, String> fields = populateMap(title, fullName, alias, cities, states, nations);
+            // Build search options
+            Map<SearchFields, String> fields = populateMap(title, fullName, alias, cities, states, nations);
 
 /*        Map<SearchFields, LogicOperator> fieldOptions = populateMap2(fullNameOption, titleOption, aliasOption,
                 citiesOption, statesOption);*/
 
-        //TODO add not queries
+            //TODO add not queries
 
-        if (singleField(fields)) { // only need to take care of 'NOT'
-            System.out.println("Single  field search");
+            if (singleField(fields)) { // only need to take care of 'NOT'
+                System.out.println("Single  field search");
 
-            Page<Person> persons = null;
+                Page<Person> persons = null;
 
-            if (fields.containsKey(SearchFields.FullName)) {
-                if (fullNameOption.equals(LogicOperator.NOT.name())) {
+                if (fields.containsKey(SearchFields.FullName)) {
+                    if (fullNameOption.equals(LogicOperator.NOT.name())) {
 
-                } else { //AND
-                    persons = personService.findByFullname(fullName, new PageRequest(0, 1));
-                    person = persons.iterator().next();
-                    System.out.println(person);
+                    } else { //AND
+                        persons = personService.findByFullname(fullName, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                        //System.out.println(person);
 
+                    }
+                } else if (fields.containsKey(SearchFields.Title)) {
+                    if (titleOption.equals(LogicOperator.NOT.name())) {
+
+                    } else {
+                        persons = personService.findByTitle(title, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                    }
+                } else if (fields.containsKey(SearchFields.Alias)) {
+                    if (aliasOption.equals(LogicOperator.NOT.name())) {
+
+                    } else {
+                        persons = personService.findByAlias(alias, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                    }
+                } else if (fields.containsKey(SearchFields.City)) {
+                    if (citiesOption.equals(LogicOperator.NOT.name())) {
+
+                    } else {
+                        persons = personService.findByCities(cities, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                    }
+                } else if (fields.containsKey(SearchFields.State)) {
+                    if (statesOption.equals(LogicOperator.NOT.name())) {
+
+                    } else {
+                        persons = personService.findByStates(states, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                    }
+                } else if (fields.containsKey(SearchFields.Nation)) {
+                    if (nationsOption.equals(LogicOperator.NOT.name())) {
+
+                    } else {
+                        persons = personService.findByNations(nations, new PageRequest(0, 1));
+                        //person = persons.iterator().next();
+                    }
                 }
-            } else if (fields.containsKey(SearchFields.Title)) {
-                if (titleOption.equals(LogicOperator.NOT.name())) {
 
-                } else {
-                    persons = personService.findByTitle(title, new PageRequest(0, 1));
-                    person = persons.iterator().next();
-                }
-            } else if (fields.containsKey(SearchFields.Alias)) {
-                if (aliasOption.equals(LogicOperator.NOT.name())) {
+                // return results
+                final Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), 5);
 
-                } else {
-                    persons = personService.findByAlias(alias, new PageRequest(0, 1));
-                    person = persons.iterator().next();
-                }
-            } else if (fields.containsKey(SearchFields.City)) {
-                if (citiesOption.equals(LogicOperator.NOT.name())) {
+                model.addAttribute("persons", persons);
+                model.addAttribute("selectedPageSize",100);
+                model.addAttribute("pageSizes", 10);
+                model.addAttribute("pager", pager);
+                return "persons";
 
-                } else {
-                    persons = personService.findByCities(cities, new PageRequest(0, 1));
-                    person = persons.iterator().next();
-                }
-            } else if (fields.containsKey(SearchFields.State)) {
-                if (statesOption.equals(LogicOperator.NOT.name())) {
-
-                } else {
-                    persons = personService.findByStates(states, new PageRequest(0, 1));
-                    person = persons.iterator().next();
-                }
-            } else if (fields.containsKey(SearchFields.Nation)) {
-                if (nationsOption.equals(LogicOperator.NOT.name())) {
-
-                } else {
-                    persons = personService.findByNations(nations, new PageRequest(0, 1));
-                    //person = persons.iterator().next();
-                }
+            } else {
+                System.out.println("Multiple fields");
             }
 
-            // return results
-            final Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), 5);
+            String[] formOptions = new String[] {titleOption, fullNameOption, aliasOption, citiesOption, statesOption, nationsOption};
+            String[] formOptions_no_title = new String[] {fullNameOption, aliasOption, citiesOption, statesOption, nationsOption};
+            String[] formOptions_no_fullname = new String[] {titleOption, aliasOption, citiesOption, statesOption, nationsOption};
+            String[] formOptions_no_alias = new String[] {titleOption, fullNameOption, citiesOption, statesOption, nationsOption};
+            String[] formOptions_no_city = new String[] {titleOption, fullNameOption, aliasOption, statesOption, nationsOption};
+            String[] formOptions_no_state= new String[] {titleOption, fullNameOption, aliasOption, citiesOption, nationsOption};
 
-            model.addAttribute("persons", persons);
-            model.addAttribute("selectedPageSize",100);
-            model.addAttribute("pageSizes", 10);
-            model.addAttribute("pager", pager);
-            return "persons";
-
-        } else {
-            System.out.println("Multiple fields");
-        }
-
-        String[] formOptions = new String[] {titleOption, fullNameOption, aliasOption, citiesOption, statesOption, nationsOption};
-        String[] formOptions_no_title = new String[] {fullNameOption, aliasOption, citiesOption, statesOption, nationsOption};
-        String[] formOptions_no_fullname = new String[] {titleOption, aliasOption, citiesOption, statesOption, nationsOption};
-        String[] formOptions_no_alias = new String[] {titleOption, fullNameOption, citiesOption, statesOption, nationsOption};
-        String[] formOptions_no_city = new String[] {titleOption, fullNameOption, aliasOption, statesOption, nationsOption};
-        String[] formOptions_no_state= new String[] {titleOption, fullNameOption, aliasOption, citiesOption, nationsOption};
-
-        String[] formOptions_no_nations = new String[] {titleOption, fullNameOption, aliasOption, citiesOption, statesOption};
+            String[] formOptions_no_nations = new String[] {titleOption, fullNameOption, aliasOption, citiesOption, statesOption};
 
 
-        // else if multiple fields:
+            // else if multiple fields:
 
             // if all ANDs
 
@@ -218,7 +219,7 @@ public class SingleItemController {
 
             // the dirty way (removes all pagination)
 
-             pr = new PageRequest(0, 3700);
+            pr = new PageRequest(0, 3700);
 
             // removes pagination
             if (fields.size() >= 2 &&  fields.size() <= 4) {
@@ -413,20 +414,24 @@ public class SingleItemController {
                 System.out.println("The list is:" + personsCopy.toString());
             }
 
-        //model.addAttribute("persons", personsCopy);
+            //model.addAttribute("persons", personsCopy);
 
-        //System.out.println("The list is:" + personsCopy.toString());
+            //System.out.println("The list is:" + personsCopy.toString());
 
-        final Page<Person> page = new PageImpl<>(personsCopy);
+            final Page<Person> page = new PageImpl<>(personsCopy);
 
-        System.out.println(page.iterator().next());
+            //System.out.println(page.iterator().next());
 
-        final Pager pager = new Pager(page.getTotalPages(), page.getNumber(), 5);
-        model.addAttribute("persons", page);
-        model.addAttribute("selectedPageSize",100);
-        model.addAttribute("pageSizes", 10);
-        model.addAttribute("pager", pager);
-        return "persons";
+            final Pager pager = new Pager(page.getTotalPages(), page.getNumber(), 5);
+            model.addAttribute("persons", page);
+            model.addAttribute("selectedPageSize",100);
+            model.addAttribute("pageSizes", 10);
+            model.addAttribute("pager", pager);
+            return "persons";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
 
     }
 
