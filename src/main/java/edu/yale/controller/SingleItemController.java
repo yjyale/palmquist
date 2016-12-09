@@ -42,9 +42,9 @@ public class SingleItemController {
                                @RequestParam(value="fullNameOption", required = false)  String fullNameOption,
                                @RequestParam(value="titleOption", required = false) String titleOption,
                                @RequestParam(value="aliasOption", required = false) String aliasOption,
-                               @RequestParam(value="citiesOption", required = false) String citiesOption,
-                               @RequestParam(value="statesOption", required = false) String statesOption,
-                               @RequestParam(value="nationsOption", required = false) String nationsOption) {
+                               @RequestParam(value="cityOption", required = false) String citiesOption,
+                               @RequestParam(value="stateOption", required = false) String statesOption,
+                               @RequestParam(value="nationOption", required = false) String nationsOption) {
 
         Person person = new Person();
 
@@ -71,12 +71,15 @@ public class SingleItemController {
         //TODO add not queries
 
         if (singleField(fields)) { // only need to take care of 'NOT'
-            System.out.println("Output field");
+            System.out.println("Single  field search");
+
+            Page<Person> persons = null;
+
             if (fields.containsKey(SearchFields.FullName)) {
                 if (fullNameOption.equals(LogicOperator.NOT.name())) {
 
                 } else { //AND
-                    Page<Person> persons = personService.findByFullname(fullName, new PageRequest(0, 1));
+                    persons = personService.findByFullname(fullName, new PageRequest(0, 1));
                     person = persons.iterator().next();
                     System.out.println(person);
 
@@ -85,38 +88,47 @@ public class SingleItemController {
                 if (titleOption.equals(LogicOperator.NOT.name())) {
 
                 } else {
-                    Page<Person> persons = personService.findByTitle(title, new PageRequest(0, 1));
+                    persons = personService.findByTitle(title, new PageRequest(0, 1));
                     person = persons.iterator().next();
                 }
             } else if (fields.containsKey(SearchFields.Alias)) {
                 if (aliasOption.equals(LogicOperator.NOT.name())) {
 
                 } else {
-                    Page<Person> persons = personService.findByAlias(alias, new PageRequest(0, 1));
+                    persons = personService.findByAlias(alias, new PageRequest(0, 1));
                     person = persons.iterator().next();
                 }
             } else if (fields.containsKey(SearchFields.City)) {
                 if (citiesOption.equals(LogicOperator.NOT.name())) {
 
                 } else {
-                    Page<Person> persons = personService.findByCities(cities, new PageRequest(0, 1));
+                    persons = personService.findByCities(cities, new PageRequest(0, 1));
                     person = persons.iterator().next();
                 }
             } else if (fields.containsKey(SearchFields.State)) {
                 if (statesOption.equals(LogicOperator.NOT.name())) {
 
                 } else {
-                    Page<Person> persons = personService.findByStates(states, new PageRequest(0, 1));
+                    persons = personService.findByStates(states, new PageRequest(0, 1));
                     person = persons.iterator().next();
                 }
             } else if (fields.containsKey(SearchFields.Nation)) {
                 if (nationsOption.equals(LogicOperator.NOT.name())) {
 
                 } else {
-                    Page<Person> persons = personService.findByNations(nations, new PageRequest(0, 1));
-                    person = persons.iterator().next();
+                    persons = personService.findByNations(nations, new PageRequest(0, 1));
+                    //person = persons.iterator().next();
                 }
             }
+
+            // return results
+            final Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), 5);
+
+            model.addAttribute("persons", persons);
+            model.addAttribute("selectedPageSize",100);
+            model.addAttribute("pageSizes", 10);
+            model.addAttribute("pager", pager);
+            return "persons";
 
         } else {
             System.out.println("Multiple fields");
@@ -280,7 +292,10 @@ public class SingleItemController {
                     if (!nations.isEmpty()) {
                         if (!(p.getNations() != null && p.getNations().equals(nations))) {
                             nationsMatch = false;
+                            System.out.println("Nations not match:" + p.getNations());
+
                         } else {
+                            System.out.println("Nations match:" + p.getNations() + " Person:" + p.getFullName());
                             nationsMatch = true;
                         }
                     }
@@ -288,8 +303,8 @@ public class SingleItemController {
                     // 2 fields
 
 
+                    if (title != null && fullName != null && allAndSearch(titleOption, fullNameOption)) {
 
-                    if (title != null && fullName != null && titleOption.equals("AND") && fullNameOption.equals("AND")) {
                         if (titleMatch && fullNameMatch) {
                             System.out.println("Doing a title and full name match search");
                             personsCopy.add(p);
@@ -297,79 +312,85 @@ public class SingleItemController {
 
                     }
 
-                    if (allAndSearch(titleOption, aliasOption)) {
+                    if (title!= null && alias != null && allAndSearch(titleOption, aliasOption)) {
                         if (titleMatch && aliasMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(titleOption, statesOption)) {
+                    if (title != null & states != null && allAndSearch(titleOption, statesOption)) {
                         if (titleMatch && statesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(titleOption, citiesOption)) {
+                    if (title!= null && cities != null && allAndSearch(titleOption, citiesOption)) {
                         if (titleMatch && citiesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(titleOption, nationsOption)) {
+                    if (title!= null && nations != null && allAndSearch(titleOption, nationsOption)) {
                         if (titleMatch && nationsMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(fullNameOption, aliasOption)) {
+                    if (fullName!= null && alias != null && allAndSearch(fullNameOption, aliasOption)) {
                         if (fullNameMatch && aliasMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(fullNameOption, statesOption)) {
+                    if (fullName!= null && states != null && allAndSearch(fullNameOption, statesOption)) {
                         if (fullNameMatch && statesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(fullNameOption, citiesOption)) {
+                    if (fullName!= null && cities !=null && allAndSearch(fullNameOption, citiesOption)) {
                         if (fullNameMatch && citiesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(aliasOption, nationsOption)) {
+                    if (fullName!= null && nations !=null && allAndSearch(fullNameOption, nationsOption)) {
+                        if (fullNameMatch && nationsMatch) {
+                            personsCopy.add(p);
+                        }
+                    }
+
+                    if (alias != null && nations != null && allAndSearch(aliasOption, nationsOption)) {
                         if (aliasMatch && nationsMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(aliasOption, statesOption)) {
+                    if (alias != null && states != null && allAndSearch(aliasOption, statesOption)) {
                         if (aliasMatch && statesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(aliasOption, citiesOption)) {
+                    if (alias != null && cities != null && allAndSearch(aliasOption, citiesOption)) {
                         if (aliasMatch && citiesMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(aliasOption, nationsOption)) {
+                    if (alias != null && nations != null && allAndSearch(aliasOption, nationsOption)) {
                         if (aliasMatch && nationsMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(statesOption, nationsOption)) {
+                    if (states != null && nations != null && allAndSearch(statesOption, nationsOption)) {
                         if (statesMatch && nationsMatch) {
                             personsCopy.add(p);
                         }
                     }
 
-                    if (allAndSearch(statesOption, citiesOption)) {
+                    if (states != null && cities != null && allAndSearch(statesOption, citiesOption)) {
                         if (statesMatch && citiesMatch) {
                             personsCopy.add(p);
                         }
