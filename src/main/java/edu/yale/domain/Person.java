@@ -86,11 +86,9 @@ public class Person {
         this.fullName = fullName;
     }
 
-    public Person(int age, String alias, String cities, String fullName, String states) {
-        this.alias = alias;
-        this.cities = cities;
+    public Person(String title, String fullName) {
+        this.title = title;
         this.fullName = fullName;
-        this.states = states;
     }
 
     public String getFullName() {

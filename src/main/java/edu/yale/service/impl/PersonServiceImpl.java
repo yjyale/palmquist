@@ -6,6 +6,7 @@ import edu.yale.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +25,15 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findByFullName(fullName, pageable);
     }
 
+    //@Override
+    //public Page<Person> findAll(Pageable pageable) {
+       // return personRepository.findAll(pageable);
+
     @Override
-    public Page<Person> findAll(Pageable pageable) {
-        return personRepository.findAll(pageable);
+    public Page<Person> findAll(Specification<Person> var1, Pageable pageable) {
+        return personRepository.findAll(var1, pageable);
     }
+    //}
 
     @Override
     public Page<Person> findByTitleAndFullnameAndAliasAndNationsAndStates(String str, String str1, String str2, String str3, String str4, Pageable pageable) {

@@ -3,11 +3,16 @@ package edu.yale.controller;
 import edu.yale.domain.Pager;
 import edu.yale.domain.Person;
 import edu.yale.service.PersonService;
+import edu.yale.spec.PersonSpecification;
+import edu.yale.spec.SearchCriteria;
+import edu.yale.spec.SearchOperation;
+import edu.yale.spec.SpecSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +72,43 @@ public class SingleItemController {
                 return "singleitem";
 
             }
+
+         //   final UserSpecification spec = new UserSpecification(new SpecSearchCriteria("firstName", SearchOperation.CONTAINS, "oh"));
+
+
+
+
+
+            if (true) {
+                // return results
+                System.out.println("Custom search");
+
+                int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+                // Evaluate page. If requested parameter is null or less than 0 (to
+                // prevent exception), return initial size. Otherwise, return value of
+                // param. decreased by 1.
+                int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+                PersonSpecification spec1 =
+                        new PersonSpecification(new SpecSearchCriteria("title", SearchOperation.CONTAINS, title));
+                PersonSpecification spec2 =
+                        new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, fullName));
+
+                Page<Person> results = personService.findAll(Specifications.where(spec1).and(spec2),
+                        new PageRequest(evalPage, evalPageSize));
+
+                System.out.println("Results size:" + results.getNumberOfElements());
+                //final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), 5);
+                Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
+
+
+                model.addAttribute("persons", results);
+                model.addAttribute("selectedPageSize", evalPageSize);
+                model.addAttribute("pageSizes", PAGE_SIZES);
+                model.addAttribute("pager", pager);
+                return "persons";
+            }
+
 
             System.out.println("AND title option:" + titleOption);
             System.out.println("AND name option:" + fullNameOption);
@@ -242,7 +284,10 @@ public class SingleItemController {
 
             // removes pagination
             if (fields.size() >= 2 &&  fields.size() <= 4) {
-                Page<Person> persons = personService.findAll(pr); // or load at cache time
+               // Page<Person> persons = personService.findAll(pr); // or load at cache time
+
+                Page<Person> persons = null; //FIXME
+
 
                 System.out.println("Persons size:" + persons.getSize());
 

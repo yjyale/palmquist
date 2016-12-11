@@ -3,15 +3,22 @@ package edu.yale.repository;
 import edu.yale.domain.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
+public interface PersonRepository //extends PagingAndSortingRepository<Person, Long>
+        extends JpaRepository<Person, Long>, JpaSpecificationExecutor<Person>
 
-    Page<Person> findByPersonId(long id, Pageable pageable);
+     {
+
+        // Page<Person> findAll(Specification<Person> var1);
+         Page<Person> findByPersonId(long id, Pageable pageable);
     Page<Person> findByFullName(String lastName, Pageable pageable);
     Page<Person> findByFullNameContaining(String lastName, Pageable pageable);
 
