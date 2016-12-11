@@ -48,6 +48,7 @@ public class DatabaseInitializer {
         Person firstPerson12 = new Person("Madame", "Bard");
         Person firstPerson13 = new Person("Madame", "Bard");
         Person firstPerson14 = new Person("Madame", "Alice");
+        firstPerson14.setIndex("Madame Alice");
         firstPerson14.setNations("UK");
 
 

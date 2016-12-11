@@ -113,6 +113,8 @@ public class QuickSearchResultsController {
         modelAndView.addObject("selectedPageSize", evalPageSize);
         modelAndView.addObject("pageSizes", PAGE_SIZES);
         modelAndView.addObject("pager", pager);
+        modelAndView.addObject("keywords", keywords);
+        modelAndView.addObject("keywordsOption", keywordOption);
         return modelAndView;
     }
 
