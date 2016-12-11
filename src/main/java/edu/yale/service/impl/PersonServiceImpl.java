@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class PersonServiceImpl implements PersonService {
 
@@ -28,6 +30,16 @@ public class PersonServiceImpl implements PersonService {
     //@Override
     //public Page<Person> findAll(Pageable pageable) {
        // return personRepository.findAll(pageable);
+
+    @Override
+    public Page<Person> findByTitleInOrFullNameInOrAliasInOrNationsInOrCitiesInOrStatesIn(List<String> keywords, Pageable pageable) {
+        return personRepository.findByTitleOrFullNameOrAliasOrNationsOrCitiesOrStates(keywords, pageable);
+    }
+
+    @Override
+    public Page<Person> findByTitleOrFullNameOrAliasOrNationsOrCitiesOrStates(List<String> keywords, Pageable pageable) {
+        return personRepository.findByTitleInOrFullNameInOrAliasInOrNationsInOrCitiesInOrStatesIn(keywords, pageable);
+    }
 
     @Override
     public Page<Person> findAll(Specification<Person> var1, Pageable pageable) {

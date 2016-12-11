@@ -22,7 +22,7 @@ import java.util.*;
  * Advanced Search
  */
 @Controller
-public class MultipleItemController {
+public class AdvancedResultsController {
 
     private PersonService personService;
 
@@ -47,7 +47,7 @@ public class MultipleItemController {
     private static final int[] PAGE_SIZES = {5, 10, 20};
 
     @Autowired
-    public MultipleItemController(PersonService studentService) {
+    public AdvancedResultsController(PersonService studentService) {
         this.personService = studentService;
     }
 

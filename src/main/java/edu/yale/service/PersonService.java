@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
+
 public interface PersonService {
 
     /**
@@ -42,9 +44,15 @@ public interface PersonService {
     Page<Person> findByCities(String str, Pageable pageable);
     Page<Person> findByCitiesContaining(String str, Pageable pageable);
 
+    Page<Person> findByTitleOrFullNameOrAliasOrNationsOrCitiesOrStates(List<String> keywords, Pageable pageable);
+
+    Page<Person> findByTitleInOrFullNameInOrAliasInOrNationsInOrCitiesInOrStatesIn(List<String> keywords, Pageable pageable);
+
     /*
 
     // 2 columns
+
+    Page<Person> findByTitleOrFullNameOrAliasOrNationsOrCitiesOrStates(List<String> keywords, Pageable pageable);
 
     Page<Person> findByTitleAndFullname(String str1, String str2, Pageable pageable);
     Page<Person> findByTitleAndAlias(String str, String str2, Pageable pageable);

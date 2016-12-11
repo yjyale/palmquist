@@ -33,6 +33,8 @@ public class DatabaseInitializer {
         firstPerson.setNations(("USA"));
         firstPerson.setStates("CT");
         firstPerson.setCities("New Haven");
+        firstPerson.setIndex("Ms Gibbons New Haven CT USA"); //tmp. set this to a different index record
+
         Person firstPerson2 = new Person("Madame", "Bard");
         Person firstPerson3 = new Person("Madame", "Bard");
         Person firstPerson4 = new Person("Madame", "Bard");

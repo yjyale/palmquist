@@ -76,10 +76,10 @@
             <h3>Quick Search</h3>
             <p> (Searches the title, full name, and A.K.A. Description fields) </p>
             <div class="col-md-8">
-                <form class="form-inline" action="#" th:action="@{/multipleitems}" th:object="${greeting}" method="get">
+                <form class="form-inline" action="#" th:action="@{/persons}" th:object="${greeting}" method="get">
                       <div class="form-group">
                         <label class="sr-only">Search Palmquist collection</label>
-                        <select class="form-control">
+                        <select class="form-control" th:field="*{keywordOption}">
                             <option value="ALL of these keywords">ALL of these keywords</option>
                             <option value="ANY of these keywords">ANY of these keywords</option>
                             <option value="This entire phrase">This entire phrase</option>

@@ -78,6 +78,10 @@ public class Person {
     @Transient
     private String aliasOption;
 
+    // default test field value .. todo remove the default value
+    @Column (name ="index")
+    private String index = "Madame Bard";
+
 
     public Person() {
     }
@@ -266,6 +270,14 @@ public class Person {
 
     public void setAliasOption(String aliasOption) {
         this.aliasOption = aliasOption;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 
     @Override
