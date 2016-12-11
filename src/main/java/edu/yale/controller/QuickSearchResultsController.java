@@ -90,13 +90,13 @@ public class QuickSearchResultsController {
 
                 if (keywordOption.contains("ALL")) {
                     spec = spec.and(personSpecification);
-                    //personService.findByIndexLike("madame").and("bard")
-                }
-
-                if (keywordOption.contains("ANY")) {
+                } else if (keywordOption.contains("ANY")) {
                     spec = spec.or(personSpecification);
+                } else if (keywordOption.contains("entire phrase")) {
+                    spec = Specifications.where(new PersonSpecification(
+                            new SpecSearchCriteria("index", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
+                    break;
                 }
-
             }
 
         }

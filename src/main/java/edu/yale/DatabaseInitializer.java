@@ -51,9 +51,11 @@ public class DatabaseInitializer {
         firstPerson14.setIndex("Madame Alice");
         firstPerson14.setNations("UK");
 
+        Person alice = new Person("Madame", "Frohnhaeuser, Alice");
+        alice.setIndex("Madame Frohnhaeuser, Alice");
 
         personService.save(Arrays.asList(firstPerson, firstPerson2, firstPerson3, firstPerson4, firstPerson5
-                , firstPerson6, firstPerson7, firstPerson8, firstPerson9, firstPerson10, firstPerson11, firstPerson12, firstPerson13, firstPerson14
+                , firstPerson6, firstPerson7, firstPerson8, firstPerson9, firstPerson10, firstPerson11, firstPerson12, firstPerson13, firstPerson14, alice
         ));
 
     }
