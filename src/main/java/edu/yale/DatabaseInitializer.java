@@ -29,7 +29,10 @@ public class DatabaseInitializer {
         System.out.println("Populating sample data");
 
 
-        Person firstPerson = new Person("Madame", "Bard");
+        Person firstPerson = new Person("Ms", "Gibbons");
+        firstPerson.setNations(("USA"));
+        firstPerson.setStates("CT");
+        firstPerson.setCities("New Haven");
         Person firstPerson2 = new Person("Madame", "Bard");
         Person firstPerson3 = new Person("Madame", "Bard");
         Person firstPerson4 = new Person("Madame", "Bard");
@@ -42,7 +45,8 @@ public class DatabaseInitializer {
         Person firstPerson11= new Person("Madame", "Bard");
         Person firstPerson12 = new Person("Madame", "Bard");
         Person firstPerson13 = new Person("Madame", "Bard");
-        Person firstPerson14 = new Person("Madame", "Bardel");
+        Person firstPerson14 = new Person("Madame", "Alice");
+        firstPerson14.setNations("UK");
 
 
         personService.save(Arrays.asList(firstPerson, firstPerson2, firstPerson3, firstPerson4, firstPerson5

@@ -19,12 +19,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
-
+/**
+ * Advanced Search
+ */
 @Controller
 public class MultipleItemController {
 
     private PersonService personService;
 
+    // Form constants
+    private static final String TITLE = "title";
+    private static final String FULL_NAME = "fullName";
+    private static final String ALIAS = "alias";
+    private static final String CITIES = "cities";
+    private static final String NATIONS = "nations";
+    private static final String STATES = "states";
+    private static final String TITLE_OPTION = "titleOption";
+    private static final String FULL_NAME_OPTION = "fullNameOption";
+    private static final String ALIAS_OPTION = "aliasOption";
+    private static final String CITIES_OPTION = "citiesOption";
+    private static final String NATIONS_OPTION = "nationsOption";
+    private static final String STATES_OPTION = "statesOption";
+
+    // Pagination options
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 5;
@@ -36,193 +53,156 @@ public class MultipleItemController {
     }
 
     /*
-        The request looks something like:
-        http://localhost:8080/singleitem?title=&fullName=Bard&alias=&nations=&states=&cities=
+        The request looks like:
+        http://localhost:8080/advanced_search?title=&fullName=Bard&alias=&nations=&states=&cities=
      */
     @RequestMapping(value = "/multipleitems", method = RequestMethod.GET)
     public Model greetingForm(final Model model,
-                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
-                               @RequestParam(value = "page", required = false) Integer page,
-                               @RequestParam(value = "id", required = false) Long id,
-                               @RequestParam(value = "fullName", required = false) String fullName,
-                               @RequestParam(value = "title", required = false) String title,
-                               @RequestParam(value = "alias", required = false) String alias,
-                               @RequestParam(value = "cities", required = false) String cities,
-                               @RequestParam(value = "states", required = false) String states,
-                               @RequestParam(value = "nations", required = false) String nations,
-                               @RequestParam(value = "fullNameOption", required = false) String fullNameOption,
-                               @RequestParam(value = "titleOption", required = false) String titleOption,
-                               @RequestParam(value = "aliasOption", required = false) String aliasOption,
-                               @RequestParam(value = "cityOption", required = false) String citiesOption,
-                               @RequestParam(value = "stateOption", required = false) String statesOption,
-                               @RequestParam(value = "nationOption", required = false) String nationsOption) {
+                              @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                              @RequestParam(value = "page", required = false) Integer page,
+                              @RequestParam(value = "fullName", required = false) String fullName,
+                              @RequestParam(value = TITLE, required = false) String title,
+                              @RequestParam(value = ALIAS, required = false) String alias,
+                              @RequestParam(value = CITIES, required = false) String cities,
+                              @RequestParam(value = STATES, required = false) String states,
+                              @RequestParam(value = NATIONS, required = false) String nations,
+                              @RequestParam(value = "fullNameOption", required = false) String fullNameOption,
+                              @RequestParam(value = "titleOption", required = false) String titleOption,
+                              @RequestParam(value = "aliasOption", required = false) String aliasOption,
+                              @RequestParam(value = "cityOption", required = false) String citiesOption,
+                              @RequestParam(value = "stateOption", required = false) String statesOption,
+                              @RequestParam(value = "nationOption", required = false) String nationsOption) {
 
 
-        // return results
-        System.out.println("Custom search");
-
-        int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
         // Evaluate page. If requested parameter is null or less than 0 (to
         // prevent exception), return initial size. Otherwise, return value of
         // param. decreased by 1.
-        int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+        final int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+        final int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
-        System.out.println("Eval page size:" + evalPageSize);
 
-        System.out.println("Eval page:" + evalPage);
+        Specifications spec = null;
 
-        System.out.println("Title:" + title);
+        // Create maps
 
-        if (title == null && fullName == null) {
-            //title = "Madame";
-            //fullName = "Bard";
-        } else {
-            System.out.println("Not null params title, fullname");
+        // Populate with PrepareSpecification for each form param
+        final Map<String, PersonSpecification> specificationsMap = new HashMap<>();
+
+        if (title != null && !title.isEmpty()) {
+            specificationsMap.put(TITLE,
+                    new PersonSpecification(new SpecSearchCriteria(TITLE, SearchOperation.CONTAINS, title)));
         }
 
-        System.out.println("Full Name" + fullName);
+        if (fullName != null && !fullName.isEmpty()) {
+            specificationsMap.put(FULL_NAME,
+                    new PersonSpecification(new SpecSearchCriteria(FULL_NAME, SearchOperation.CONTAINS, fullName)));
+        }
 
-        final PersonSpecification spec1 =
-                new PersonSpecification(new SpecSearchCriteria("title", SearchOperation.CONTAINS, title));
-        final PersonSpecification spec2 =
-                new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, fullName));
+        if (alias != null && !alias.isEmpty()) {
+            specificationsMap.put(ALIAS,
+                    new PersonSpecification(new SpecSearchCriteria(ALIAS, SearchOperation.CONTAINS, alias)));
+        }
 
-        final Page<Person> results1 = personService.findAll(Specifications.where(spec1).and(spec2),
-                new PageRequest(evalPage, evalPageSize));
+        if (cities != null && !cities.isEmpty()) {
+            specificationsMap.put(CITIES,
+                    new PersonSpecification((new SpecSearchCriteria(CITIES, SearchOperation.CONTAINS, cities))));
+        }
 
-        System.out.println("Results size:" + results1.getNumberOfElements());
-        //final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), 5);
-        Pager pager = new Pager(results1.getTotalPages(), results1.getNumber(), BUTTONS_TO_SHOW);
+        if (nations != null && !nations.isEmpty()) {
+            specificationsMap.put(NATIONS,
+                    new PersonSpecification((new SpecSearchCriteria(NATIONS, SearchOperation.CONTAINS, nations))));
+        }
+
+        if (states != null && !states.isEmpty()) {
+            specificationsMap.put(STATES,
+                    new PersonSpecification((new SpecSearchCriteria(STATES, SearchOperation.CONTAINS, states))));
+        }
+
+        // Create a LogicOperator map, one entry for each form logic param
+
+        final Map<String, LogicOperator> logicalOpMap = new HashMap<>();
+        logicalOpMap.put(TITLE, LogicOperator.valueOf(titleOption));
+        logicalOpMap.put(FULL_NAME, LogicOperator.valueOf(fullNameOption));
+        logicalOpMap.put(ALIAS, LogicOperator.valueOf(aliasOption));
+        logicalOpMap.put(CITIES, LogicOperator.valueOf(citiesOption));
+        logicalOpMap.put(NATIONS, LogicOperator.valueOf(nationsOption));
+        logicalOpMap.put(STATES, LogicOperator.valueOf(statesOption));
 
 
-        model.addAttribute("persons", results1);
+        final Set<String> keys = specificationsMap.keySet();
+
+        // Create a Specification object
+
+        for (final String k : keys) {
+            final PersonSpecification fieldSpec = specificationsMap.get(k);
+            final LogicOperator op = logicalOpMap.get(k);
+            spec = addSpec(op, spec, fieldSpec);
+        }
+
+
+        if (spec == null) {
+            // todo
+        }
+
+        // Finally search
+
+        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize));
+        final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
+
+        // Populate the model for the form. Add request parameters so pagination can work:
+
+        model.addAttribute("persons", results);
         model.addAttribute("selectedPageSize", evalPageSize);
         model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("pager", pager);
-        model.addAttribute("title", title);
-        model.addAttribute("fullName", fullName);
+
+        model.addAttribute(TITLE, title);
+        model.addAttribute(FULL_NAME, fullName);
+        model.addAttribute(ALIAS, alias);
+        model.addAttribute(CITIES, cities);
+        model.addAttribute(NATIONS, nations);
+        model.addAttribute(STATES, states);
+
+        model.addAttribute(TITLE_OPTION, titleOption);
+        model.addAttribute(FULL_NAME_OPTION, fullNameOption);
+        model.addAttribute(ALIAS_OPTION, aliasOption);
+        model.addAttribute(CITIES_OPTION, citiesOption);
+        model.addAttribute(NATIONS_OPTION, nationsOption);
+        model.addAttribute(STATES_OPTION, statesOption);
         return model;
-
-
     }
 
-    private boolean allAndSearch(String titleOption, String fullNameOption, String aliasOption, String cityOption, String stateOption, String nationOption) {
-        if (isAnd(titleOption) && isAnd(fullNameOption)
-                && isAnd(aliasOption) && isAnd(cityOption) && isAnd(stateOption) && isAnd(nationOption)) {
-            return true;
-        }
-        return false;
-    }
 
-    private boolean allAndSearch(String... options) {
+    private static Specifications addSpec(final LogicOperator logicOperation,
+                                          final Specifications specification, final PersonSpecification add) {
 
-        boolean result = true;
-
-        for (String s : options) {
-            if (!isAnd(s)) {
-                result = false;
-                break;
-            }
+        if (specification == null) {
+            return Specifications.where(add);
         }
 
-
-        return result;
-    }
-
-
-    private boolean allOrSearch(String... options) {
-
-        boolean result = true;
-
-        for (String s : options) {
-            if (!isOr(s)) {
-                result = false;
-                break;
-            }
+        switch (logicOperation) {
+            case AND:
+                return specification.and(add);
+            case OR:
+                return specification.or(add);
+            case NOT:
+                return Specifications.not(add);
+            default:
+                return null;
         }
 
-        return result;
-    }
-
-    private boolean allOrSearch(String titleOption, String fullNameOption, String aliasOption, String cityOption, String stateOption, String nationOption) {
-        if (isOr(titleOption) && isOr(fullNameOption)
-                && isOr(aliasOption) && isOr(cityOption) && isOr(stateOption) && isOr(nationOption)) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isAnd(String string) {
-        return string != null && string.equals("AND");
-    }
-
-    private boolean isOr(String string) {
-        return string.equals("OR");
-    }
-
-    private boolean isNot(String string) {
-        return string.equals("NOT");
-    }
-
-
-    private boolean containsField(final Map<SearchFields, String> fields, final SearchFields request) {
-        return fields.containsKey(request);
-    }
-
-    private boolean singleField(final Map<SearchFields, String> fields) {
-        System.out.println("Field size" + fields.size());
-        return fields.size() == 1;
-    }
-
-    // populate form objects
-    // sigh
-    private Map<SearchFields, String> populateMap(String title, String fullName, String alias, String cities, String states, String nations) {
-        final Map<SearchFields, String> fields = new HashMap<>();
-
-        if (!fullName.isEmpty()) {
-            fields.put(SearchFields.FullName, fullName);
-        }
-        if (!title.isEmpty()) {
-            fields.put(SearchFields.Title, title);
-            System.out.println(title);
-
-        }
-
-        if (!alias.isEmpty()) {
-            fields.put(SearchFields.Alias, alias);
-
-        }
-
-        if (!cities.isEmpty()) {
-            fields.put(SearchFields.City, cities);
-
-        }
-
-        if (!states.isEmpty()) {
-            fields.put(SearchFields.State, states);
-
-        }
-
-        if (!nations.isEmpty()) {
-            fields.put(SearchFields.Nation, nations);
-
-        }
-        return fields;
-    }
-
-    private enum SearchFields {
-        FullName,
-        Title,
-        Alias,
-        City,
-        State,
-        Nation
     }
 
     private enum LogicOperator {
-        AND,
-        OR,
-        NOT
+        AND("AND"),
+        OR("OR"),
+        NOT("NOT");
+
+        String name;
+
+        LogicOperator(String name) {
+            this.name = name;
+        }
     }
 }
 
