@@ -8,7 +8,6 @@ import edu.yale.spec.SearchOperation;
 import edu.yale.spec.SpecSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
@@ -55,6 +54,11 @@ public class MultipleItemController {
     /*
         The request looks like:
         http://localhost:8080/advanced_search?title=&fullName=Bard&alias=&nations=&states=&cities=
+
+        Not using a Map in method signature to keep the method shorter
+
+        // todo simplify
+
      */
     @RequestMapping(value = "/multipleitems", method = RequestMethod.GET)
     public Model greetingForm(final Model model,
@@ -74,59 +78,36 @@ public class MultipleItemController {
                               @RequestParam(value = "nationOption", required = false) String nationsOption) {
 
 
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
         final int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
         final int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
-
         Specifications spec = null;
 
-        // Create maps
+        // Create maps:
 
-        // Populate with PrepareSpecification for each form param
+        // 1. A map to represent all form values that should be passed back (like Spring's requestMap)
+
+        final Map<String, String> formParams = populateFormMap(fullName, title, alias, cities, states, nations, fullNameOption,
+                titleOption, aliasOption, citiesOption, statesOption, nationsOption);
+
+
+        // 2. Populate with PrepareSpecification for each form param
+
+        final Map<String, String> requestParams = populateFormSansOptions(fullName, title, alias, cities, states, nations);
+        final Set<String> reqParamSet = requestParams.keySet();
+
         final Map<String, PersonSpecification> specificationsMap = new HashMap<>();
 
-        if (title != null && !title.isEmpty()) {
-            specificationsMap.put(TITLE,
-                    new PersonSpecification(new SpecSearchCriteria(TITLE, SearchOperation.CONTAINS, title)));
+        for (String s : reqParamSet) {
+            if (isValid(requestParams.get(s))) {
+                specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.CONTAINS, requestParams.get(s))));
+            }
         }
 
-        if (fullName != null && !fullName.isEmpty()) {
-            specificationsMap.put(FULL_NAME,
-                    new PersonSpecification(new SpecSearchCriteria(FULL_NAME, SearchOperation.CONTAINS, fullName)));
-        }
+        // 3. Create a LogicOperator map, one entry for each form logic param
 
-        if (alias != null && !alias.isEmpty()) {
-            specificationsMap.put(ALIAS,
-                    new PersonSpecification(new SpecSearchCriteria(ALIAS, SearchOperation.CONTAINS, alias)));
-        }
-
-        if (cities != null && !cities.isEmpty()) {
-            specificationsMap.put(CITIES,
-                    new PersonSpecification((new SpecSearchCriteria(CITIES, SearchOperation.CONTAINS, cities))));
-        }
-
-        if (nations != null && !nations.isEmpty()) {
-            specificationsMap.put(NATIONS,
-                    new PersonSpecification((new SpecSearchCriteria(NATIONS, SearchOperation.CONTAINS, nations))));
-        }
-
-        if (states != null && !states.isEmpty()) {
-            specificationsMap.put(STATES,
-                    new PersonSpecification((new SpecSearchCriteria(STATES, SearchOperation.CONTAINS, states))));
-        }
-
-        // Create a LogicOperator map, one entry for each form logic param
-
-        final Map<String, LogicOperator> logicalOpMap = new HashMap<>();
-        logicalOpMap.put(TITLE, LogicOperator.valueOf(titleOption));
-        logicalOpMap.put(FULL_NAME, LogicOperator.valueOf(fullNameOption));
-        logicalOpMap.put(ALIAS, LogicOperator.valueOf(aliasOption));
-        logicalOpMap.put(CITIES, LogicOperator.valueOf(citiesOption));
-        logicalOpMap.put(NATIONS, LogicOperator.valueOf(nationsOption));
-        logicalOpMap.put(STATES, LogicOperator.valueOf(statesOption));
+        final Map<String, LogicOperator> logicalOpMap = populateLogicOperatorMap(fullNameOption, titleOption,
+                aliasOption, citiesOption, statesOption, nationsOption);
 
 
         final Set<String> keys = specificationsMap.keySet();
@@ -141,7 +122,7 @@ public class MultipleItemController {
 
 
         if (spec == null) {
-            // todo
+            //throw new FormException();
         }
 
         // Finally search
@@ -156,20 +137,76 @@ public class MultipleItemController {
         model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("pager", pager);
 
-        model.addAttribute(TITLE, title);
-        model.addAttribute(FULL_NAME, fullName);
-        model.addAttribute(ALIAS, alias);
-        model.addAttribute(CITIES, cities);
-        model.addAttribute(NATIONS, nations);
-        model.addAttribute(STATES, states);
+        // add form parameters for paginated search
+        // adds model.addAttribute(TITLE, title);
 
-        model.addAttribute(TITLE_OPTION, titleOption);
-        model.addAttribute(FULL_NAME_OPTION, fullNameOption);
-        model.addAttribute(ALIAS_OPTION, aliasOption);
-        model.addAttribute(CITIES_OPTION, citiesOption);
-        model.addAttribute(NATIONS_OPTION, nationsOption);
-        model.addAttribute(STATES_OPTION, statesOption);
+        final Set<String> formKeys = formParams.keySet();
+
+        for (final String f : formKeys) {
+            model.addAttribute(f, formParams.get(f));
+        }
+
         return model;
+    }
+
+    private boolean isValid(@RequestParam(value = TITLE, required = false) String title) {
+        return title != null && !title.isEmpty();
+    }
+
+    private Map<String, LogicOperator> populateLogicOperatorMap(@RequestParam(value = "fullNameOption", required = false) String fullNameOption, @RequestParam(value = "titleOption", required = false) String titleOption, @RequestParam(value = "aliasOption", required = false) String aliasOption, @RequestParam(value = "cityOption", required = false) String citiesOption, @RequestParam(value = "stateOption", required = false) String statesOption, @RequestParam(value = "nationOption", required = false) String nationsOption) {
+        final Map<String, LogicOperator> logicalOpMap = new HashMap<>();
+        logicalOpMap.put(TITLE, LogicOperator.valueOf(titleOption));
+        logicalOpMap.put(FULL_NAME, LogicOperator.valueOf(fullNameOption));
+        logicalOpMap.put(ALIAS, LogicOperator.valueOf(aliasOption));
+        logicalOpMap.put(CITIES, LogicOperator.valueOf(citiesOption));
+        logicalOpMap.put(NATIONS, LogicOperator.valueOf(nationsOption));
+        logicalOpMap.put(STATES, LogicOperator.valueOf(statesOption));
+        return logicalOpMap;
+    }
+
+    private Map<String, String> populateFormMap(@RequestParam(value = "fullName", required = false) String fullName,
+                                                @RequestParam(value = TITLE, required = false) String title,
+                                                @RequestParam(value = ALIAS, required = false) String alias,
+                                                @RequestParam(value = CITIES, required = false) String cities,
+                                                @RequestParam(value = STATES, required = false) String states,
+                                                @RequestParam(value = NATIONS, required = false) String nations,
+                                                @RequestParam(value = "fullNameOption", required = false) String fullNameOption,
+                                                @RequestParam(value = "titleOption", required = false) String titleOption,
+                                                @RequestParam(value = "aliasOption", required = false) String aliasOption,
+
+                                                @RequestParam(value = "cityOption", required = false) String citiesOption,
+                                                @RequestParam(value = "stateOption", required = false) String statesOption,
+                                                @RequestParam(value = "nationOption", required = false) String nationsOption) {
+        final Map<String, String> formParams = new HashMap<>();
+        formParams.put(TITLE, title);
+        formParams.put(FULL_NAME, fullName);
+        formParams.put(ALIAS, alias);
+        formParams.put(CITIES, cities);
+        formParams.put(STATES, states);
+        formParams.put(NATIONS, nations);
+        formParams.put(TITLE_OPTION, titleOption);
+        formParams.put(FULL_NAME_OPTION, fullNameOption);
+        formParams.put(ALIAS_OPTION, aliasOption);
+        formParams.put(CITIES_OPTION, citiesOption);
+        formParams.put(STATES_OPTION, statesOption);
+        formParams.put(NATIONS_OPTION, nationsOption);
+        return formParams;
+    }
+
+    private Map<String, String> populateFormSansOptions(@RequestParam(value = "fullName", required = false) String fullName,
+                                                        @RequestParam(value = TITLE, required = false) String title,
+                                                        @RequestParam(value = ALIAS, required = false) String alias,
+                                                        @RequestParam(value = CITIES, required = false) String cities,
+                                                        @RequestParam(value = STATES, required = false) String states,
+                                                        @RequestParam(value = NATIONS, required = false) String nations) {
+        final Map<String, String> formParams = new HashMap<>(); // This should be replaced with Spring Map
+        formParams.put(TITLE, title);
+        formParams.put(FULL_NAME, fullName);
+        formParams.put(ALIAS, alias);
+        formParams.put(CITIES, cities);
+        formParams.put(STATES, states);
+        formParams.put(NATIONS, nations);
+        return formParams;
     }
 
 
