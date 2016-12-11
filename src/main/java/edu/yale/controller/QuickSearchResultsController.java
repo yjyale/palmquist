@@ -109,6 +109,12 @@ public class QuickSearchResultsController {
         final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
+        // Don't show pagination if no results found
+        if (results.getTotalElements() == 0) {
+            System.out.println("No results found");
+            System.out.println("Total number of pages:" + results.getTotalPages());
+        }
+
         modelAndView.addObject("persons", results);
         modelAndView.addObject("selectedPageSize", evalPageSize);
         modelAndView.addObject("pageSizes", PAGE_SIZES);

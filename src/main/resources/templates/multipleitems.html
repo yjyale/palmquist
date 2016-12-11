@@ -117,7 +117,7 @@
 		</div>
 		<div class="row">
 
-            <div th:if="${persons.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+            <div th:if="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
                 <ul class="pagination">
                     <!-- <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li> -->
                     <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber()}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}">&larr;</a></li>
@@ -126,6 +126,10 @@
                     <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption} )}">&rarr;</a></li>
                     <!--<li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize},page=${persons.getTotalPages()})}">&raquo;</a></li> -->
                 </ul>
+            </div>
+
+            <div th:unless="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
+                No results found
             </div>
 
         </div>
