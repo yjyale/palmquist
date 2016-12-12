@@ -50,6 +50,22 @@ public class Person {
     @Column (name  = "`Album Box`")
     private String albumbox;
 
+    @Column (name = "`Physical Description - Regular`")
+    private String physicalDescriptionRegular;
+
+    @Column (name = "`Physical Description - Albums`")
+    private String physicalDescriptionAlbums;
+
+    @Column (name = "`Physical Description - Fragile Photo`")
+    private String physicalDescriptionsFragilePhoto;
+
+    @Column (name = "`Physical Description - Audiovisual")
+    private String physicalDescriptionsAudioVisual;
+
+    @Column (name = "`Physical Description - Oversize")
+    private String physicalDescriptionsOversize;
+
+
     @Column (name  = "`Fragile Photo Box`")
     private String fragilebox;
 
@@ -274,6 +290,46 @@ public class Person {
 
     public String getIndex() {
         return index;
+    }
+
+    public String getPhysicalDescriptionRegular() {
+        return physicalDescriptionRegular;
+    }
+
+    public void setPhysicalDescriptionRegular(String physicalDescriptionRegular) {
+        this.physicalDescriptionRegular = physicalDescriptionRegular;
+    }
+
+    public String getPhysicalDescriptionAlbums() {
+        return physicalDescriptionAlbums;
+    }
+
+    public void setPhysicalDescriptionAlbums(String physicalDescriptionAlbums) {
+        this.physicalDescriptionAlbums = physicalDescriptionAlbums;
+    }
+
+    public String getPhysicalDescriptionsFragilePhoto() {
+        return physicalDescriptionsFragilePhoto;
+    }
+
+    public void setPhysicalDescriptionsFragilePhoto(String physicalDescriptionsFragilePhoto) {
+        this.physicalDescriptionsFragilePhoto = physicalDescriptionsFragilePhoto;
+    }
+
+    public String getPhysicalDescriptionsAudioVisual() {
+        return physicalDescriptionsAudioVisual;
+    }
+
+    public void setPhysicalDescriptionsAudioVisual(String physicalDescriptionsAudioVisual) {
+        this.physicalDescriptionsAudioVisual = physicalDescriptionsAudioVisual;
+    }
+
+    public String getPhysicalDescriptionsOversize() {
+        return physicalDescriptionsOversize;
+    }
+
+    public void setPhysicalDescriptionsOversize(String physicalDescriptionsOversize) {
+        this.physicalDescriptionsOversize = physicalDescriptionsOversize;
     }
 
     public void setIndex(String index) {
