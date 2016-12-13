@@ -18,7 +18,7 @@
   <link type="text/css" rel="stylesheet" href="http://beinecke.library.yale.edu/sites/default/files/css/css_lPg7gMmpDRrLCuKwffEw3L3eFkVzyVDEJsWC9BKCIgg.css" media="all and (max-width: 679px)" />
   <link type="text/css" rel="stylesheet" href="http://beinecke.library.yale.edu/sites/default/files/css/css_jTVs1ZoWiGJx3upjEUO2K6BZn_3hiYIert4YPJbdsEw.css" media="all and (min-width: 680px)" />
   <link type="text/css" rel="stylesheet" href="http://beinecke.library.yale.edu/sites/default/files/css/css_dsF10iae9YCChkGKcdcVhSnId6N3WlbbuEE0p_3HyP4.css" media="all" />
-  <link type="text/css" rel="stylesheet" href="/Users/tm642/palmquist/src/main/resources/static/css/palmquist-theme.css"/>     <link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />  
+  <link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />  
 
 <!--[if (lt IE 9)&(!IEMobile)]>
 <link type="text/css" rel="stylesheet" href="http://beinecke.library.yale.edu/sites/default/files/css/css__vb7XZfXeuRXjYmfY6lNTg-jy-9kxy0K07AXHAQnnDQ.css" media="all" />
@@ -136,209 +136,218 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
             </div>
           </div>
         </div>
-      </div></header>  
-      <section id="section-content" class="section section-content">
-        <div id="zone-preface-wrapper" class="zone-wrapper zone-preface-wrapper clearfix">  <div id="zone-preface" class="zone zone-preface clearfix container-12">
-          <div class="grid-12 region region-preface-second" id="region-preface-second">
-            <a id="subnav-toggle" href="#region-sidebar-first">Navigation</a>
-            <div class="region-inner region-preface-second-inner">
-            </div>
-          </div>  </div>
+      </div>
+    </header>  
+    <section id="section-content" class="section section-content">
+        <div id="zone-preface-wrapper" class="zone-wrapper zone-preface-wrapper clearfix">  
+          <div id="zone-preface" class="zone zone-preface clearfix container-12">
+            <div class="grid-12 region region-preface-second" id="region-preface-second">
+              <a id="subnav-toggle" href="#region-sidebar-first">Navigation</a>
+              <div class="region-inner region-preface-second-inner">
+              </div>
+            </div> 
+          </div> 
         </div>
-        <div id="zone-content-wrapper" class="zone-wrapper zone-content-wrapper clearfix">  <div id="zone-content" class="zone zone-content clearfix container-12">
-        <div class="grid-12 region region-content" id="region-content">
-          <div class="region-inner region-content-inner">
-            <a id="main-content"></a>
-            <h1 class="title" id="page-title">Palmquist Collection: Women in Photography</h1>
-            <div class="block block-system block-main block-system-main odd block-without-title" id="block-system-main">
-              <div class="block-inner clearfix">
-                <div class="content clearfix">
-                  <div class="node node-page view-mode-full node-not-promoted node-not-sticky author-1 odd clearfix clearfix">
+        <div id="zone-content-wrapper" class="zone-wrapper zone-content-wrapper clearfix">
+
+         <div id="zone-content" class="zone zone-content clearfix container-12">
+          <div class="grid-12 region region-content" id="region-content">
+            <div class="region-inner region-content-inner">
+                <a id="main-content"></a>
+                <h1 class="title" id="page-title">Palmquist Collection: Women in Photography</h1>
+              <div class="block block-system block-main block-system-main odd block-without-title" id="block-system-main">
+                  <div class="block-inner clearfix">
+                    <div class="content clearfix">
+                      <div class="node node-page view-mode-full node-not-promoted node-not-sticky author-1 odd clearfix clearfix">
 
                     <div class="ds-main grid-12">
                       <div class="field field-name-body field-type-text-with-summary field-label-hidden">
                         <div class="field-items">
                           <div class="field-item even" property="content:encoded">
                             <h2 style="margin-bottom: 0.2em; font-size: 1.5em; font: inherit; font-weight: normal; line-height: 1.3em; font-family: Georgia; color: rgb(52, 68, 97); -webkit-text-size-adjust: none;">
-                           <a href="http://hdl.handle.net/10079/fa/beinecke.wipa">[Read more about this collection]</a></h2>
+                             <a href="http://hdl.handle.net/10079/fa/beinecke.wipa">[Read more about this collection]</a></h2>
+                           </div>
                           </div>
                         </div>
+                       </div>
                       </div>
+                     </div>
+                   </div>
+                 </div>
+                       <!--<div class="ds-right grid-4"></div>-->
 
-                      <!--<div class="ds-right grid-4"></div>-->
-
-                      <div class="ds-bottom grid-12" style="margin-top: 2em;">                        
-                          <div class="field field-name-body field-type-text-with-summary field-label-hidden">
-                            <div class="field-items">
-                                  <div class="field-item even" property="content:encoded">
-                                      <h2>Details</h2>
-                                      <div>
-                                        <p th:text="' Title: '"></p>
-                                        <p th:text="${person.title}"></p>
-                                      </div>
-                                      <div>  
-                                        <p th:text=" 'Full Name: '"></p> 
-                                        <p th:text="${person.fullName}"</p>
-                                      </div>
-                                      <div>  
-                                        <p th:text=" 'Also Known As: '"></p>
-                                        <p th:text="${person.alias}"></p>
-                                      </div>
-                                      <div>
-                                        <p th:text="' Nations: '"></p>
-                                        <p th:text="${person.nations}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' States: '"></p>
-                                        <p th:text="${person.states}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Cities: '"></p>
-                                        <p th:text="${person.cities}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Life Dates: '"></p>
-                                        <p th:text="${person.lifedates}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Work Dates: '"></p>
-                                        <p th:text="${person.workdates}"></p>
-                                      </div>
-                                      <div>
-                                        <p th:text="' Bio Box: '"></p>
-                                        <p th:text="${person.biobox}"></p>
-                                      </div>
-                                      <div>
-                                        <p th:text="' Photo Box: '"></p>
-                                        <p th:text="${person.photobox}"></p>
-                                      </div>             
-                                      <div>
-                                        <p th:text="' Photo Folders: '"></p>
-                                        <p th:text="${person.photofolders}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Album Box: '"></p>
-                                        <p th:text="${person.albumbox}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Fragile Photo Box: '"></p>
-                                        <p th:text="${person.fragilebox}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Audiovisual Box: '"></p>
-                                        <p th:text="${person.audiovisualbox}"></p>
-                                      </div>  
-                                      <div>
-                                        <p th:text="' Oversize Photo Box: '"></p>
-                                        <p th:text="${person.oversizebox}"></p>
-                                      </div>
-                                      <div>
-                                        <p th:text="' ID: '"></p>
-                                        <p th:text="${person.personId}"></p>
-                                      </div>
+                       <div class="ds-bottom grid-12" style="margin-top: 2em;">                        
+                        <div class="field field-name-body field-type-text-with-summary field-label-hidden">
+                          <div class="field-items">
+                            <div class="field-item even" property="content:encoded">
+                                <h2>Details</h2>
+                                <div>
+                                  <p th:text="' Title: '"></p>
+                                  <p th:text="${person.title}"></p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-               </div>
-             </div>
-          </div>
-        </div>
-          <div id="zone-postscript-wrapper" class="zone-wrapper zone-postscript-wrapper clearfix"><div id="zone-postscript" class="zone zone-postscript clearfix same-height-container container-12">
-          <div class="grid-4 region region-postscript-second same-height-element" id="region-postscript-second">
-            <div class="region-inner region-postscript-second-inner">
-              <section class="block block-block block-3 block-block-3 odd" id="block-block-3">
-                <div class="block-inner clearfix">
-                  <h2 class="block-title">Library Services</h2>
-
-                  <div class="content clearfix">
-                    <!--smart_paging_filter--><ul><li class="librarian"><a href="/research/research-services">research services</a></li>
-                    <li class="materials"><a href="http://aeon-brbl.library.yale.edu/">request materials in the reading room</a></li>
-                    <li class="materials"><a href="/research/ordering-reproductions">order reproductions</a></li>
-                    <li class="permissions"><a href="/research/permissions-copyright">permissions and copyright</a></li>
-                    <li class="fellowship"><a href="/programs-events/fellowship-program">fellowship opportunities</a></li>
-                    <li class="reserve"><a href="/programs-events/teaching-beinecke">reserve a classroom</a></li>
-                  </ul>    </div>
-                </div>
-              </section>
-            </div>
-          </div>
-          <div class="grid-4 region region-postscript-third same-height-element" id="region-postscript-third">
-            <div class="region-inner region-postscript-third-inner">
-              <section class="block block-block block-4 block-block-4 odd" id="block-block-4">
-                <div class="block-inner clearfix">
-                  <h2 class="block-title">Contact</h2>
-
-                  <div class="content clearfix">
-                    <!--smart_paging_filter--><p><a name="Contact" id="Contact"></a>Beinecke Rare Book &amp; Manuscript Library<br />121 Wall Street | New Haven, CT 06511<br /><a href="http://map.yale.edu/map/#search:beinecke" target="_blank">Campus Map</a></p><p>Tel: (203) 432-2977    Fax: (203) 432-4047</p><p><span style="line-height: 18px; ">USPS: </span><a href="/about/contact" style="line-height: 18px; ">Mailing Address and Information</a></p><p>email: <a href="mailto:beinecke.library@yale.edu">A</a><a href="/ask-librarian">sk a Librarian</a></p><p>Beinecke <a href="http://messages.yale.edu/subscribe/home/subscribechangeentry/beinecke/1272653">events &amp; news email list subscription</a></p><p> </p>
-                    <style type="text/css">
-                    /*--><![CDATA[/* ><!--*/
-
-                    .ig-b- { display: inline-block; }
-                    .ig-b- img { visibility: hidden; }
-                    .ig-b-:hover { background-position: 0 -60px; } .ig-b-:active { background-position: 0 -120px; }
-                    .ig-b-24 { width: 24px; height: 24px; background: url(//badges.instagram.com/static/images/ig-badge-sprite-24.png) no-repeat 0 0; }
-                    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-                      .ig-b-24 { background-image: url(//badges.instagram.com/static/images/ig-badge-sprite-24@2x.png); background-size: 60px 178px; } }
-                      /*--><!]]>*/
-                    </style><ul><li class="social facebook"><a href="http://www.facebook.com/pages/New-Haven-CT/Beinecke-Rare-Book-and-Manuscript-Library/69515365615" target="_blank">Facebook</a></li><li class="social twitter"><a href="http://twitter.com/BeineckeLibrary" target="_blank">Twitter</a></li><li class="social flickr"><a href="http://www.flickr.com/photos/beinecke_library" target="_blank">Flickr</a></li><li class="social rss"><a href="/rss.xml">RSS</a></li></ul>    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-            <div class="grid-4 region region-postscript-fourth same-height-element" id="region-postscript-fourth">
-              <div class="region-inner region-postscript-fourth-inner">
-                <section class="block block-block block-5 block-block-5 odd" id="block-block-5">
-                  <div class="block-inner clearfix">
-                    <h2 class="block-title">Hours</h2>
-
-                    <div class="content clearfix">
-                      <!--smart_paging_filter--><p><a name="Hours" id="Hours"></a></p><p>Monday 10 a.m. to 7 p.m.<br />Tuesday-Thursday 9 a.m. to 7 p.m.<br />Friday 9 a.m. to 5<br />Saturday (Exhibitions only) 12 p.m. to 5 p.m.</p><p><a href="/visit/holiday-schedule">Holiday Schedule</a> and <a href="/collections/closed-collections-schedule">Closed Collections Schedule</a></p>    </div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-          <footer id="section-footer" class="section section-footer">
-            <div id="zone-footer-wrapper" class="zone-wrapper zone-footer-wrapper clearfix">  
-              <div id="zone-footer" class="zone zone-footer clearfix container-12">
-                <a id="go-to-top" href="#page">Top</a>
-                <div class="grid-12 region region-footer-first" id="region-footer-first">
-                  <div class="region-inner region-footer-first-inner">
-                    <div class="block block-block block-6 block-block-6 odd block-without-title" id="block-block-6">
-                      <div class="block-inner clearfix">
-
-                        <div class="content clearfix">
-                          <!--smart_paging_filter--><p>Copyright 2016, Yale University Beinecke Rare Book &amp; Manuscript Library. All rights reserved.</p>
-                          <!-- Begin: www.iperceptions.com --><script src="http://ips-invite.iperceptions.com/webValidator.aspx?sdfc=f081369a-111161-8511aa57-c3fb-4ccf-8cf6-c605e5d4f593&amp;lID=1&amp;loc=STUDY&amp;cD=90&amp;rF=True&amp;iType=1&amp;domainname=0" type="text/javascript" defer="defer"></script><!-- End: www.iperceptions.com -->    </div>
+                                <div>  
+                                  <p th:text=" 'Full Name: '"></p> 
+                                  <p th:text="${person.fullName}"></p>
+                                  </div>
+                                  <div>  
+                                    <p th:text=" 'Also Known As: '"></p>
+                                    <p th:text="${person.alias}"></p>
+                                  </div>
+                                  <div>
+                                    <p th:text="' Nations: '"></p>
+                                    <p th:text="${person.nations}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' States: '"></p>
+                                    <p th:text="${person.states}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Cities: '"></p>
+                                    <p th:text="${person.cities}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Life Dates: '"></p>
+                                    <p th:text="${person.lifedates}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Work Dates: '"></p>
+                                    <p th:text="${person.workdates}"></p>
+                                  </div>
+                                  <div>
+                                    <p th:text="' Bio Box: '"></p>
+                                    <p th:text="${person.biobox}"></p>
+                                  </div>
+                                  <div>
+                                    <p th:text="' Photo Box: '"></p>
+                                    <p th:text="${person.photobox}"></p>
+                                  </div>             
+                                  <div>
+                                    <p th:text="' Photo Folders: '"></p>
+                                    <p th:text="${person.photofolders}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Album Box: '"></p>
+                                    <p th:text="${person.albumbox}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Fragile Photo Box: '"></p>
+                                    <p th:text="${person.fragilebox}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Audiovisual Box: '"></p>
+                                    <p th:text="${person.audiovisualbox}"></p>
+                                  </div>  
+                                  <div>
+                                    <p th:text="' Oversize Photo Box: '"></p>
+                                    <p th:text="${person.oversizebox}"></p>
+                                  </div>
+                                  <div>
+                                    <p th:text="' ID: '"></p>
+                                    <p th:text="${person.personId}"></p>
+                                  </div>
+                              </div>
+                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="grid-12 region region-footer-second" id="region-footer-second">
-                    <div class="region-inner region-footer-second-inner">
-                      <div class="block block-menu-block block-3 block-menu-block-3 odd block-without-title" id="block-menu-block-3">
+                </div>
+              </div>  
+              <div id="zone-postscript-wrapper" class="zone-wrapper zone-postscript-wrapper clearfix">
+
+                <div id="zone-postscript" class="zone zone-postscript clearfix same-height-container container-12">
+                  <div class="grid-4 region region-postscript-second same-height-element" id="region-postscript-second">
+                    <div class="region-inner region-postscript-second-inner">
+                      <section class="block block-block block-3 block-block-3 odd" id="block-block-3">
                         <div class="block-inner clearfix">
+                          <h2 class="block-title">Library Services</h2>
+                          <div class="content clearfix">
+                            <!--smart_paging_filter--><ul><li class="librarian"><a href="/research/research-services">research services</a></li>
+                            <li class="materials"><a href="http://aeon-brbl.library.yale.edu/">request materials in the reading room</a></li>
+                            <li class="materials"><a href="/research/ordering-reproductions">order reproductions</a></li>
+                            <li class="permissions"><a href="/research/permissions-copyright">permissions and copyright</a></li>
+                            <li class="fellowship"><a href="/programs-events/fellowship-program">fellowship opportunities</a></li>
+                            <li class="reserve"><a href="/programs-events/teaching-beinecke">reserve a classroom</a></li>
+                          </ul>    
+                        </div>
+                      </div>
+                    </section>
+                   </div>
+                  </div>
+                </div>
+                <div class="grid-4 region region-postscript-third same-height-element" id="region-postscript-third">
+                  <div class="region-inner region-postscript-third-inner">
+                    <section class="block block-block block-4 block-block-4 odd" id="block-block-4">
+                        <div class="block-inner clearfix">
+                          <h2 class="block-title">Contact</h2>
 
                           <div class="content clearfix">
-                            <div class="menu-block-wrapper menu-block-3 menu-name-menu-footer-menu parent-mlid-0 menu-level-1">
-                              <ul class="menu"><li class="first leaf menu-mlid-686 menu-title-yale-university"><a href="http://yale.edu" title="">Yale University</a></li>
-                                <li class="leaf menu-mlid-687 menu-title-yale-university-library"><a href="http://library.yale.edu" title="">Yale University Library</a></li>
-                                <li class="leaf menu-mlid-688 menu-title-terms-of-use"><a href="/terms-of-use" title="">Terms of Use</a></li>
-                                <li class="last leaf menu-mlid-1003 menu-title-credits"><a href="/site-credits" title="">Credits</a></li>
-                              </ul></div>
+                            <!--smart_paging_filter--><p><a name="Contact" id="Contact"></a>Beinecke Rare Book &amp; Manuscript Library<br />121 Wall Street | New Haven, CT 06511<br /><a href="http://map.yale.edu/map/#search:beinecke" target="_blank">Campus Map</a></p><p>Tel: (203) 432-2977    Fax: (203) 432-4047</p><p><span style="line-height: 18px; ">USPS: </span><a href="/about/contact" style="line-height: 18px; ">Mailing Address and Information</a></p><p>email: <a href="mailto:beinecke.library@yale.edu">A</a><a href="/ask-librarian">sk a Librarian</a></p><p>Beinecke <a href="http://messages.yale.edu/subscribe/home/subscribechangeentry/beinecke/1272653">events &amp; news email list subscription</a></p><p> </p>
+                            <style type="text/css">
+                            /*--><![CDATA[/* ><!--*/
+
+                            .ig-b- { display: inline-block; }
+                            .ig-b- img { visibility: hidden; }
+                            .ig-b-:hover { background-position: 0 -60px; } .ig-b-:active { background-position: 0 -120px; }
+                            .ig-b-24 { width: 24px; height: 24px; background: url(//badges.instagram.com/static/images/ig-badge-sprite-24.png) no-repeat 0 0; }
+                            @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+                              .ig-b-24 { background-image: url(//badges.instagram.com/static/images/ig-badge-sprite-24@2x.png); background-size: 60px 178px; } }
+                              /*--><!]]>*/
+                            </style><ul><li class="social facebook"><a href="http://www.facebook.com/pages/New-Haven-CT/Beinecke-Rare-Book-and-Manuscript-Library/69515365615" target="_blank">Facebook</a></li><li class="social twitter"><a href="http://twitter.com/BeineckeLibrary" target="_blank">Twitter</a></li><li class="social flickr"><a href="http://www.flickr.com/photos/beinecke_library" target="_blank">Flickr</a></li><li class="social rss"><a href="/rss.xml">RSS</a></li></ul>    </div>
+                          </div>
+                    </section>
+                  </div>
+                </div>
+                <div class="grid-4 region region-postscript-fourth same-height-element" id="region-postscript-fourth">
+                  <div class="region-inner region-postscript-fourth-inner">
+                    <section class="block block-block block-5 block-block-5 odd" id="block-block-5">
+                      <div class="block-inner clearfix">
+                        <h2 class="block-title">Hours</h2>
+                          <div class="content clearfix">
+                            <!--smart_paging_filter--><p><a name="Hours" id="Hours"></a></p><p>Monday 10 a.m. to 7 p.m.<br />Tuesday-Thursday 9 a.m. to 7 p.m.<br />Friday 9 a.m. to 5<br />Saturday (Exhibitions only) 12 p.m. to 5 p.m.</p><p><a href="/visit/holiday-schedule">Holiday Schedule</a> and <a href="/collections/closed-collections-schedule">Closed Collections Schedule</a></p>    
+                          </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+    </section>
+                <footer id="section-footer" class="section section-footer">
+                  <div id="zone-footer-wrapper" class="zone-wrapper zone-footer-wrapper clearfix">  
+                    <div id="zone-footer" class="zone zone-footer clearfix container-12">
+                      <a id="go-to-top" href="#page">Top</a>
+                      <div class="grid-12 region region-footer-first" id="region-footer-first">
+                        <div class="region-inner region-footer-first-inner">
+                          <div class="block block-block block-6 block-block-6 odd block-without-title" id="block-block-6">
+                            <div class="block-inner clearfix">
+
+                              <div class="content clearfix">
+                                <!--smart_paging_filter--><p>Copyright 2016, Yale University Beinecke Rare Book &amp; Manuscript Library. All rights reserved.</p>
+                                <!-- Begin: www.iperceptions.com --><script src="http://ips-invite.iperceptions.com/webValidator.aspx?sdfc=f081369a-111161-8511aa57-c3fb-4ccf-8cf6-c605e5d4f593&amp;lID=1&amp;loc=STUDY&amp;cD=90&amp;rF=True&amp;iType=1&amp;domainname=0" type="text/javascript" defer="defer"></script><!-- End: www.iperceptions.com -->    </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="grid-12 region region-footer-second" id="region-footer-second">
+                          <div class="region-inner region-footer-second-inner">
+                            <div class="block block-menu-block block-3 block-menu-block-3 odd block-without-title" id="block-menu-block-3">
+                              <div class="block-inner clearfix">
+
+                                <div class="content clearfix">
+                                  <div class="menu-block-wrapper menu-block-3 menu-name-menu-footer-menu parent-mlid-0 menu-level-1">
+                                    <ul class="menu"><li class="first leaf menu-mlid-686 menu-title-yale-university"><a href="http://yale.edu" title="">Yale University</a></li>
+                                      <li class="leaf menu-mlid-687 menu-title-yale-university-library"><a href="http://library.yale.edu" title="">Yale University Library</a></li>
+                                      <li class="leaf menu-mlid-688 menu-title-terms-of-use"><a href="/terms-of-use" title="">Terms of Use</a></li>
+                                      <li class="last leaf menu-mlid-1003 menu-title-credits"><a href="/site-credits" title="">Credits</a></li>
+                                    </ul></div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </footer>
                   </div>
-                </div>
-              </footer>
-              </div>
-            </body>
-            </html>
+                </body>
+                </html>
