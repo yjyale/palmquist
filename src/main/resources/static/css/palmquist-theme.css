@@ -1,6 +1,41 @@
 /* -------------------------------------------------------------------------*/
 /* ----- Customizations for Beinecke legacy collections and databases ----- */
 /* ------------------------------------------------------------------------ */
-.ui-accordion {width: 0px; background-color: #eee;}
 
-input .palmSearch {width: 100%;}
+.ds-bottom grid-8 {margin-top: 2em;}
+#advanced.field-item.even {margin-top: 4em;}
+
+/* select button, form input */
+.palm-search {background-color: #eee;}
+input.palmSearch {width: 60%;}
+
+/* form inputs and labels */
+.search-col1, .search-col2 {display: inline-table;}
+.search-col1 {margin-right: 4em;}
+.fieldGrp, .advanced, .quicksearch {margin-bottom: 1em;}
+.quicksearchBtn, .resultsTable {margin-top: 1em;}
+p.fields {margin-bottom: 0px;}
+
+/* pagination */
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 1em 0 0 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
