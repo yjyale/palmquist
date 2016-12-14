@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#">
-<head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#">
+<head xmlns:th="http://www.thymeleaf.org">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
   <link rel="shortcut icon" href="http://beinecke.library.yale.edu/sites/default/themes/custom/favicon.ico" type="image/vnd.microsoft.icon" />
@@ -177,7 +177,8 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                               <h2>Quick Search</h2>
                               <p> (Searches the title, full name, and A.K.A. Description fields) </p>
                               <div class="quicksearch">
-                                  <form action="#" th:action="@{/results}" th:object="${greeting}" method="get">
+
+                                  <form action="#" th:action="@{/results}" th:object="${person}" method="get">
                                     <select class="palm-search">
                                       <option value="Search with">Search with</option>
                                       <option value="ALL of these keywords">ALL of these keywords</option>
@@ -189,78 +190,101 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                       <input type="submit" value="Search"/>
                                     </div>                                           
                                   </form>
+
                               </div>
-                                <!--
+
+
+
+
                               <div class="field-item even" id="advanced" property="content:encoded">
                                 <h2>Advanced Search</h2>
                                 <p>Enter terms in any of the fields below.</p>
                                 <div class="advanced">
-                                  <form action="#" th:action="@{/singleitem}" th:object="${person}" method="get">
+                                  <form action="#" th:action="@{/multipleitems}" th:object="${person}" method="get">
+
+                                    <!--
+                                    <div class="form-fld col-sm-8">
+                                      <select class="form-control col-xs-2" th:field="*{titleOption}">
+                                        <option value="AND">AND</option>
+                                        <option value="OR">OR</option>
+                                        <option value="NOT">NOT</option>
+                                      </select>
+                                      <span class="col-xs-3">Title</span>
+                                      <span class="col-xs-6"><input type="text" th:field="*{title}" placeholder="Title" /></span>
+                                    </div>
+                                    -->
+
                                     <div class="search-col1">
                                       <div class="fieldGrp">
                                         <p class="fields">Title</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{titleOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
-                                        <input type="text" th:field="*{title}" />
+                                        <input type="text" th:field="*{title}" placeholder="Title" />
                                       </div>
+
+
+
                                       <div class="fieldGrp">
                                         <p class="fields">Full Name</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{fullNameOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
-                                        <input type="text" th:field="*{lastname}" />
+                                        <input type="text" th:field="*{fullName}" placeholder="Full Name" />
                                       </div>
+
                                       <div class="fieldGrp">
                                         <p class="fields">Also Known As</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{aliasOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
-                                        <input type="text" th:field="*{alias}" />
+                                        <input type="text" th:field="*{alias}" placeholder="Alias" />
                                       </div>
                                     </div>
                                     <div class="search-col2">
                                       <div class="fieldGrp">
                                         <p class="fields">Nations</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{nationOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
                                         <input class="tracy" type="text" th:field="*{nations}" />
                                       </div>
                                       <div class="fieldGrp">
                                         <p class="fields">States</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{stateOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
                                         <input type="text" th:field="*{states}" />
                                       </div>
                                       <div class="fieldGrp">
                                         <p class="fields">Cities</p>
-                                        <select class="palm-search">
-                                          <option value="And">And</option>
-                                          <option value="Or">Or</option>
-                                          <option value="Not">Not</option>
+                                        <select class="palm-search" th:field="*{cityOption}">
+                                          <option value="AND">AND</option>
+                                          <option value="OR">OR</option>
+                                          <option value="NOT">NOT</option>
                                         </select>
                                         <input type="text" th:field="*{cities}" />
                                       </div>
+
                                     </div>      
                                     <div>   
                                       <input type="submit" value="Search"/>
-                                    </div> 
+                                    </div>
+
                                   </form>
                                 </div>
                             </div>
-                            -->
+
                           </div>
                         </div>
                       </div>

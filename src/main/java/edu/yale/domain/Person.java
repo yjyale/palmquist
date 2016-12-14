@@ -9,6 +9,24 @@ import javax.persistence.*;
 @Table (name = "Palmquist")
 public class Person {
 
+    @Transient
+    private long id;
+
+    @Transient
+    private String content;
+
+    @Transient
+    private String any;
+
+    @Transient
+    private String all;
+
+    @Transient
+    private String entire;
+
+    @Transient
+    private String keywordOption;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "ID")
@@ -334,6 +352,54 @@ public class Person {
 
     public void setIndex(String index) {
         this.index = index;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAny() {
+        return any;
+    }
+
+    public void setAny(String any) {
+        this.any = any;
+    }
+
+    public String getAll() {
+        return all;
+    }
+
+    public void setAll(String all) {
+        this.all = all;
+    }
+
+    public String getEntire() {
+        return entire;
+    }
+
+    public void setEntire(String entire) {
+        this.entire = entire;
+    }
+
+    public String getKeywordOption() {
+        return keywordOption;
+    }
+
+    public void setKeywordOption(String keywordOption) {
+        this.keywordOption = keywordOption;
     }
 
     @Override

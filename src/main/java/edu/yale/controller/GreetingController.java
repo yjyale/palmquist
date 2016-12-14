@@ -1,5 +1,6 @@
 package edu.yale.controller;
 
+import edu.yale.domain.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,7 +12,8 @@ public class GreetingController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
+        //model.addAttribute("greeting", new Greeting());
+        model.addAttribute("person", new Person());
         return "greeting";
     }
 }
