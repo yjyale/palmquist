@@ -85,6 +85,10 @@ public class AdvancedResultsController {
         final int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
         final int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
+        // debug:
+
+        System.out.println(titleOption);
+
         Specifications spec = null;
 
         // Create maps:

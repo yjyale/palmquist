@@ -69,6 +69,7 @@ public class QuickSearchResultsController {
         System.out.println("Keywords:" + keywordsStr);
 
         if (keywordsStr == null) {
+            System.out.println("Error with page");
             throw new FormException();
         }
 

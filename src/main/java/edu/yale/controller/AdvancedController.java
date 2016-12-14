@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdvancedController {
 
-    @RequestMapping(value = "/advanced_search", method = RequestMethod.GET)
+    @RequestMapping(value = "/multiple_items", method = RequestMethod.GET)
     public ModelAndView greetingForm(@ModelAttribute Person person) {
-        ModelAndView modelAndView = new ModelAndView("advanced_search");
+        ModelAndView modelAndView = new ModelAndView("person");
         return modelAndView;
     }
 }
