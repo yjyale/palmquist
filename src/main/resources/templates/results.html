@@ -22,9 +22,6 @@
   <link th:href="@{/css/style.css}" rel="stylesheet" />
   <link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />
 
-
-
-
 <!--[if (lt IE 9)&(!IEMobile)]>
 <link type="text/css" rel="stylesheet" href="http://beinecke.library.yale.edu/sites/default/files/css/css__vb7XZfXeuRXjYmfY6lNTg-jy-9kxy0K07AXHAQnnDQ.css" media="all" />
 <![endif]-->
@@ -175,16 +172,16 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                 </div>
                       <!--<div class="ds-right grid-4"></div>-->
 
-                      <div class="ds-bottom grid-12" style="margin-top: 2em;">                        
-                          <div class="field field-name-body field-type-text-with-summary field-label-hidden">
-                            <div class="field-items">
-                                  <div class="field-item even" property="content:encoded">
+                      <div class="ds-bottom grid-12" style="margin-top: 2em;">                       
+                          <!--<div class="field field-name-body field-type-text-with-summary field-label-hidden">-->
+                            <!--<div>-->
+                                  <!--<div class="field-item even" property="content:encoded">-->
                                       <h2>Results</h2>
-                                      <div>
+                                      <div class="newSearch">
                                         <span><a href="/">New Search</a></span>
                                       </div>
                                       <div class="resultsTable">
-                                        <table class="table"> 
+                                        <table class="table table-condensed" style="width: auto; overflow:scroll;"> 
                                             <thead>
                                               <tr>
                                                 <th>Title</th>
@@ -200,7 +197,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                                 <th>Photo Folders</th>
                                                 <th>Album Box</th>
                                                 <th>Fragile Photo Box</th>
-                                                <th>Audiovisual Box</th>
+                                                <th>AV Box</th>
                                                 <th>Oversize Photo Box</th>
                                                 <th>ID</th>
                                               </tr>
@@ -247,9 +244,9 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                          No results found
                                         </div>
                                     </div>  
-                                </div>
-                            </div>
-                         </div>
+                                <!--</div>-->
+                            <!--</div>-->
+                         <!--</div>-->
                      </div>
                   </div>
                </div>
