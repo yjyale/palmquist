@@ -177,7 +177,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                               <h2>Quick Search</h2>
                               <p> (Searches the title, full name, and A.K.A. Description fields) </p>
                               <div class="quicksearch">
-                                  <form action="#" th:action="@{/persons}" th:object="${greeting}" method="get">
+                                  <form action="#" th:action="@{/results}" th:object="${greeting}" method="get">
                                     <select class="palm-search">
                                       <option value="Search with">Search with</option>
                                       <option value="ALL of these keywords">ALL of these keywords</option>

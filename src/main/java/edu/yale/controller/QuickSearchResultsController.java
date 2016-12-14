@@ -49,14 +49,14 @@ public class QuickSearchResultsController {
      * @param page
      * @return model and view
      */
-    @RequestMapping(value = "/persons", method = RequestMethod.GET)
+    @RequestMapping(value = "/results", method = RequestMethod.GET)
     public ModelAndView showPersonsPage(@ModelAttribute Greeting greeting,
                                         @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                         @RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value= "keywords", required=false) String keywords,
                                         @RequestParam(value = "keywordsOption", required = false) String keywordsOption) {
 
-        ModelAndView modelAndView = new ModelAndView("persons");
+        ModelAndView modelAndView = new ModelAndView("results");
 
         int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
 
