@@ -21,8 +21,8 @@ public class ConnectMSSQLServer {
                     db_userid, db_password);
             System.out.println("connected");
             Statement statement = conn.createStatement();
-            //String queryString = "select * from palmquist where ID < 10000";
-            String queryString = "select * from palmquist where ID < 1000";
+            String queryString = "select * from palmquist";
+            //String queryString = "select * from palmquist where ID < 1000";
             ResultSet rs = statement.executeQuery(queryString);
             List<Person> persons = new ArrayList<>();
 
