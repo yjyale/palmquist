@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Persons | Palmquist Collection: Women in Photography</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<link th:href="@{/css/palmquist-theme.css}" rel="stylesheet" />
+
+    <script>
+        function rowClicked(value) {
+            location.href = "/singleitem?id=" + value;
+        }
+    </script>
+
+</head>
+<body>
+
+<div class="logo">
+    <div class="container">
+        <img src='/images/yale-black.png' alt="Yale University Library"></img>
+    </div>
+</div>
+
+<nav class="navbar navbar-static-top navbar-dark bg-inverse">
+   <div class="container">
+    <div class="row col-md-8">
+        <a class="navbar-brand" href="#"><img src="/images/logo-desktop.png" alt="Beinecke Rare Book and Manuscript Library"></img></a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://beinecke.library.yale.edu/visit">visit <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://beinecke.library.yale.edu/research">research</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://beinecke.library.yale.edu/collections">collections</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#http://beinecke.library.yale.edu/exhibitions-beinecke">exhibitions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://beinecke.library.yale.edu/programs-events">programs &amp; events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://beinecke.library.yale.edu/about">about</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://beineckelibraryrenovation.yale.edu/">renovation</a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+	<div class="container">
+		<div class="row">
+			<h1>Results</h1>
+		</div>
+
+        <div class="row">
+            <!-- <p th:text="'You searched for: ' + ${greeting.content}" /> -->
+            <span><a href="/">New Search</a></span>
+            <!--
+            <div class="form-group col-xs-2 pull-right">
+				<select class="form-control pagination" id="pageSizeSelect">
+					 <option th:each="pageSize : ${pageSizes}" th:text="${pageSize} + ' per page '" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+				</select>
+			</div>
+			-->
+        </div>
+
+		<div class="row">
+			<table class="table">
+				<tr>
+				  <thead>
+                    <th>Title</th>
+					<th>Full Name</th>
+					<th>Also Known As</th>
+					<th>Nations</th>
+                    <th>States</th>
+                    <th>Cities</th>
+                    <th>Life Dates</th>
+                    <th>Work Dates</th>
+                    <th>Bio Box</th>
+                    <th>Photo Box</th>
+                    <th>Photo Folders</th>
+                    <th>Album Box</th>
+                    <th>Fragile Photo Box</th>
+                    <th>Audiovisual Box</th>
+                    <th>Oversize Photo Box</th>
+                    <th>ID</th>
+                  </thead>
+				</tr>
+				<tbody>
+				  <tr th:each="person : ${persons}"  style="cursor: pointer"
+                    th:onclick="'javascript:rowClicked(\'' + ${person.personId} + '\');'">
+                    <td th:text="${person.title}"></td>
+					<td th:text="${person.fullName}"></td>
+					<td th:text="${person.alias}"></td>
+					<td th:text="${person.nations}"></td>
+					<td th:text="${person.states}"></td>
+                    <td th:text="${person.cities}"></td>
+                    <td th:text="${person.lifedates}"></td>
+                    <td th:text="${person.workdates}"></td>
+                    <td th:text="${person.biobox}"></td>
+                    <td th:text="${person.photobox}"></td>
+                    <td th:text="${person.photofolders}"></td>
+                    <td th:text="${person.albumbox}"></td>
+                    <td th:text="${person.fragilebox}"></td>
+                    <td th:text="${person.audiovisualbox}"></td>
+                    <td th:text="${person.oversizebox}"></td>
+                    <td th:text="${person.personId}"></td>
+	              </tr>
+	            </tbody>
+			</table>
+		</div>
+		<div class="row">
+
+            <div th:if="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
+                <ul class="pagination">
+                    <!-- <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li> -->
+                    <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber()}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}">&larr;</a></li>
+                    <li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${page}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}" th:text="${page}"></a></li>
+                    <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption} )}">&rarr;</a></li>
+                    <!--<li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize},page=${persons.getTotalPages()})}">&raquo;</a></li> -->
+                </ul>
+            </div>
+
+            <div th:unless="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
+                No results found
+            </div>
+
+        </div>
+		<footer class="navbar-fixed-bottom">
+        	<p>&copy;2016 Yale University Beinecke Rare Book and Manuscript Library. All rights reserved.</p>
+    	</footer>
+	</div>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
