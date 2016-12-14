@@ -232,14 +232,14 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                         <div th:if="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
                                           <ul class="pagination">
                                             <li th:class="${persons.getNumber() == 0} ? disabled">
-                                              <a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content})}">&larr;</a>
+                                              <a class="pageLink" th:href="@{/results(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content})}">&larr;</a>
                                             </li>
                                             <li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
                                               th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}">
-                                              <a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${page}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}" th:text="${page}"></a>
+                                              <a class="pageLink" th:href="@{/results(pageSize=${selectedPageSize}, page=${page}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}" th:text="${page}"></a>
                                             </li>
                                             <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled">
-                                              <a class="pageLink" th:href="@{/persons(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&rarr;</a>
+                                              <a class="pageLink" th:href="@{/results(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&rarr;</a>
                                             </li>
                                           </ul>
                                         </div>
