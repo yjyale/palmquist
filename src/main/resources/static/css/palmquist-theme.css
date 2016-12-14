@@ -1,88 +1,42 @@
 /* -------------------------------------------------------------------------*/
 /* ----- Customizations for Beinecke legacy collections and databases ----- */
 /* ------------------------------------------------------------------------ */
-body {padding-bottom: 70px;}
 
-.navbar.navbar-static-top.navbar-dark.bg-inverse, footer.navbar-fixed-bottom {
-  background-color: #333;
-  text-align: center;
+.ds-bottom grid-8 {margin-top: 2em;}
+#advanced.field-item.even {margin-top: 4em;}
+
+/* select button, form input */
+.palm-search {background-color: #eee;}
+input.palmSearch {width: 60%;}
+
+/* form inputs and labels */
+.search-col1, .search-col2 {display: inline-table;}
+.search-col1 {margin-right: 4em;}
+.fieldGrp, .advanced, .quicksearch {margin-bottom: 1em;}
+.quicksearchBtn, .resultsTable {margin-top: 1em;}
+p.fields {margin-bottom: 0px;}
+
+/* pagination */
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 1em 0 0 0;
 }
 
-.nav > li >a {padding: 2px 2px;}
-.nav > li >a:after {
-  content: " : ";
-  color: #fff;
-  display: inline-block;
-  margin: .5em;
-}
-ul.nav.navbar-nav {margin-left: 1em;}
+ul.pagination li {display: inline;}
 
-.logo {background-color: #000; padding: .5em;}
-.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
-  margin-left: 0px;
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
 }
 
-div.row.col-md-8 {padding: 1em 0 1em 0;}
-.col-md-6, .col-sm-12, .col-md-8 {padding-left: 0px;}
-ul.ftr-links {padding: 0px; margin: 0px; float: left;}
-
-input#content.form-control {border-radius: 0px;}
-
-button.btn.btn-primary {
-  background-image: -webkit-linear-gradient(top, #e24911 0%, #e24911 100%);
-  background-image:      -o-linear-gradient(top, #e24911 0%, #e24911 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#e24911), to(#e24911));
-  background-image:         linear-gradient(to bottom, #e24911 0%, #e24911 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e24911', endColorstr='#e24911', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  background-repeat: repeat-x;
-  border-color: #ccc;
-  border-radius: 0px;
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
 }
 
-.glyphicon.glyphicon-search {margin-right: 5px; top:2px;}
-.form-fld.col-sm-9 {margin-bottom: 1em;}
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 
-a, a#toggle-search.nav-link {color: #e24911;}
-a.nav-link {color: #fff;}
-a.nav-link:hover {text-decoration: underline;}
-ul > li > a.pageLink {color: #e24911;}
-ul > li > a.pageLink:hover {color: #777;}
-
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
-  z-index: 2;
-  color: #fff;
-  cursor: default;
-  background-color: #e24911;
-  border-color: #e24911;
-}
-
-footer p,
-footer ul > li > a {
-  color: #fff; 
-  font-size: 11px;
-}
-
-footer ul li {
-  display: inline-block;
-}
-
-footer.navbar-fixed-bottom {padding: 2em 0 4em 0;}
-
-footer p, footer ul li {text-align: justify;}
-ul.ftr-links > li > a:after {
-  content: " | ";
-  color: #ccc;
-  display: inline-block;
-  margin-left: .3em;
-}
-
-.details.col-xs-4 {margin-top: 2em;}
-.advanced-form {margin-top: 2em;}
-.form-fld.col-sm-8 {padding:10px;}
-.form-control {width: auto;}
