@@ -97,6 +97,8 @@ public class QuickSearchResultsController {
                     spec = Specifications.where(new PersonSpecification(
                             new SpecSearchCriteria("index", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
                     break;
+                } else {
+                    System.out.println("Unknown option");
                 }
             }
 
