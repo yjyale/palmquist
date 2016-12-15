@@ -177,9 +177,8 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                               <h2>Quick Search</h2>
                               <p> (Searches the title, full name, and A.K.A. Description fields) </p>
                               <div class="quicksearch">
-
                                   <form action="#" th:action="@{/results}" th:object="${person}" method="get">
-                                    <select class="palm-search">
+                                    <select class="palm-search" th:field="*{keywordOption}">
                                       <option value="ALL of these keywords">ALL of these keywords</option>
                                       <option value="ANY of these keywords">ANY of these keywords</option>
                                       <option value="This entire phrase">This entire phrase</option>
@@ -189,11 +188,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                       <input type="submit" value="Search"/>
                                     </div>                                           
                                   </form>
-
                               </div>
-
-
-
 
                               <div class="field-item even" id="advanced" property="content:encoded">
                                 <h2>Advanced Search</h2>
@@ -223,8 +218,6 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                         </select>
                                         <input type="text" th:field="*{title}" placeholder="Title" />
                                       </div>
-
-
 
                                       <div class="fieldGrp">
                                         <p class="fields">Full Name</p>
