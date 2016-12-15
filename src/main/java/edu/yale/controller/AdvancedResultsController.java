@@ -115,7 +115,13 @@ public class AdvancedResultsController {
 
         for (String s : reqParamSet) {
             if (isValid(requestParams.get(s))) {
-                specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.CONTAINS, requestParams.get(s))));
+                if (formParams.get(s.concat("Option")).contains("NOT")) {
+                    System.out.println("Found a NOT");
+                    specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.NEGATION, requestParams.get(s))));
+                } else {
+                    System.out.println("Form param:" + s.concat("Option"));
+                    specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.CONTAINS, requestParams.get(s))));
+                }
             }
         }
 
@@ -130,10 +136,19 @@ public class AdvancedResultsController {
         // Create a Specification object
 
         for (final String k : keys) {
+            System.out.println("Adding:" + k);
             final PersonSpecification fieldSpec = specificationsMap.get(k);
             final LogicOperator op = logicalOpMap.get(k);
-            spec = addSpec(op, spec, fieldSpec);
+
+            if (op == LogicOperator.NOT) {
+                System.out.println("Adding not");
+                spec = addSpec(LogicOperator.NOT, spec, fieldSpec);
+            } else {
+                spec = addSpec(op, spec, fieldSpec);
+            }
+
         }
+
 
 
         if (spec == null) {
@@ -164,8 +179,8 @@ public class AdvancedResultsController {
         return model;
     }
 
-    private boolean isValid(@RequestParam(value = TITLE, required = false) String title) {
-        return title != null && !title.isEmpty();
+    private boolean isValid(String title) {
+        return title != null && title.length() > 0;
     }
 
     private Map<String, LogicOperator> populateLogicOperatorMap(@RequestParam(value = "fullNameOption", required = false) String fullNameOption, @RequestParam(value = "titleOption", required = false) String titleOption, @RequestParam(value = "aliasOption", required = false) String aliasOption, @RequestParam(value = "cityOption", required = false) String citiesOption, @RequestParam(value = "stateOption", required = false) String statesOption, @RequestParam(value = "nationOption", required = false) String nationsOption) {
@@ -238,7 +253,7 @@ public class AdvancedResultsController {
             case OR:
                 return specification.or(add);
             case NOT:
-                return Specifications.not(add);
+                return Specifications.where(add);
             default:
                 return null;
         }
