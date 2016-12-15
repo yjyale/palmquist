@@ -27,7 +27,7 @@ public class PersonSpecification implements Specification<Person> {
         case EQUALITY:
             return builder.equal(root.get(criteria.getKey()), criteria.getValue());
         case NEGATION:
-            return (builder.notEqual((builder.lower(root.get(criteria.getKey()))), (String) criteria.getValue()));
+            return (builder.notLike((builder.lower(root.get(criteria.getKey()))), "%" + (String) criteria.getValue() + "%") );
         case GREATER_THAN:
             return builder.greaterThan(root.<String> get(criteria.getKey()), criteria.getValue().toString());
         case LESS_THAN:
