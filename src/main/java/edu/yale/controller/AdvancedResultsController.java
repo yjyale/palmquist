@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Advanced Search
@@ -125,6 +126,10 @@ public class AdvancedResultsController {
             }
         }
 
+        // re organize the order:
+
+
+
         // 3. Create a LogicOperator map, one entry for each form logic param
 
         final Map<String, LogicOperator> logicalOpMap = populateLogicOperatorMap(fullNameOption, titleOption,
@@ -135,24 +140,34 @@ public class AdvancedResultsController {
 
         // Create a Specification object
 
+        // order so that not works with and
+
+        // skip and/or
         for (final String k : keys) {
             System.out.println("Adding:" + k);
             final PersonSpecification fieldSpec = specificationsMap.get(k);
             final LogicOperator op = logicalOpMap.get(k);
 
             if (op == LogicOperator.NOT) {
-                System.out.println("Adding not");
+                System.out.println("Adding not op");
                 spec = addSpec(LogicOperator.NOT, spec, fieldSpec);
             } else {
-                spec = addSpec(op, spec, fieldSpec);
+                System.out.println("Skipping and/or");
             }
-
         }
 
 
+        for (final String k : keys) {
+            System.out.println("Adding:" + k);
+            final PersonSpecification fieldSpec = specificationsMap.get(k);
+            final LogicOperator op = logicalOpMap.get(k);
 
-        if (spec == null) {
-            //throw new FormException();
+            if (op == LogicOperator.NOT) {
+                System.out.println("Skipping not op");
+            } else {
+                System.out.println("Adding and/or op");
+                spec = addSpec(op, spec, fieldSpec);
+            }
         }
 
         // Finally search
@@ -188,11 +203,12 @@ public class AdvancedResultsController {
         logicalOpMap.put(TITLE, LogicOperator.valueOf(titleOption));
         logicalOpMap.put(FULL_NAME, LogicOperator.valueOf(fullNameOption));
         logicalOpMap.put(ALIAS, LogicOperator.valueOf(aliasOption));
-        logicalOpMap.put(CITIES, LogicOperator.valueOf(citiesOption));
         logicalOpMap.put(NATIONS, LogicOperator.valueOf(nationsOption));
         logicalOpMap.put(STATES, LogicOperator.valueOf(statesOption));
+        logicalOpMap.put(CITIES, LogicOperator.valueOf(citiesOption));
         return logicalOpMap;
     }
+
 
     private Map<String, String> populateFormMap(@RequestParam(value = "fullName", required = false) String fullName,
                                                 @RequestParam(value = TITLE, required = false) String title,
@@ -240,6 +256,7 @@ public class AdvancedResultsController {
     }
 
 
+
     private static Specifications addSpec(final LogicOperator logicOperation,
                                           final Specifications specification, final PersonSpecification add) {
 
@@ -271,5 +288,7 @@ public class AdvancedResultsController {
             this.name = name;
         }
     }
+
+
 }
 
