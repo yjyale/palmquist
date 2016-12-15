@@ -95,6 +95,13 @@ public class AdvancedResultsController {
 
         // 1. A map to represent all form values that should be passed back (like Spring's requestMap)
 
+        fullName = fullName.toLowerCase();
+        title = title.toLowerCase();
+        alias = alias.toLowerCase();
+        nations = nations.toLowerCase();
+        cities = cities.toLowerCase();
+        states = states.toLowerCase();
+
         final Map<String, String> formParams = populateFormMap(fullName, title, alias, cities, states, nations, fullNameOption,
                 titleOption, aliasOption, citiesOption, statesOption, nationsOption);
 

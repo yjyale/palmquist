@@ -39,7 +39,7 @@ public class PersonSpecification implements Specification<Person> {
         case ENDS_WITH:
             return builder.like(root.<String> get(criteria.getKey()), "%" + criteria.getValue());
         case CONTAINS:
-            return builder.like(root.<String> get(criteria.getKey()), "%" + criteria.getValue() + "%");
+            return builder.like((builder.lower(root.<String>get(criteria.getKey()))), "%" + criteria.getValue() + "%");
         default:
             return null;
         }

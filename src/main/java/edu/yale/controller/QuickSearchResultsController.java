@@ -65,7 +65,7 @@ public class QuickSearchResultsController {
         String keywordOption = greeting.getKeywordOption();
         System.out.println("Keywords option" + keywordOption);
 
-        String keywordsStr = greeting.getContent();
+        String keywordsStr = greeting.getContent().toLowerCase();
         System.out.println("Keywords:" + keywordsStr);
 
         if (keywordsStr == null) {
