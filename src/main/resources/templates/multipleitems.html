@@ -371,59 +371,61 @@
                             </div>
                             <!--<div class="ds-right grid-4"></div>-->
 
-                            <div class="ds-bottom grid-12" style="margin-top: 2em;">
-                                <div class="field field-name-body field-type-text-with-summary field-label-hidden">
-                                    <div class="field-items">
-                                        <div class="field-item even" property="content:encoded">
-                                            <h2>Results</h2>
-                                            <div>
-                                                <span><a href="/">New Search</a></span>
-                                            </div>
-                                            <div class="resultsTable">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Title</th>
-                                                        <th>Full Name</th>
-                                                        <th>Also Known As</th>
-                                                        <th>Nations</th>
-                                                        <th>States</th>
-                                                        <th>Cities</th>
-                                                        <th>Life Dates</th>
-                                                        <th>Work Dates</th>
-                                                        <th>Bio Box</th>
-                                                        <th>Photo Box</th>
-                                                        <th>Photo Folders</th>
-                                                        <th>Album Box</th>
-                                                        <th>Fragile Photo Box</th>
-                                                        <th>Audiovisual Box</th>
-                                                        <th>Oversize Photo Box</th>
-                                                        <th>ID</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr th:each="person : ${persons}" style="cursor: pointer"
-                                                        th:onclick="'javascript:rowClicked(\'' + ${person.personId} + '\');'">
-                                                        <td th:text="${person.title}"></td>
-                                                        <td th:text="${person.fullName}"></td>
-                                                        <td th:text="${person.alias}"></td>
-                                                        <td th:text="${person.nations}"></td>
-                                                        <td th:text="${person.states}"></td>
-                                                        <td th:text="${person.cities}"></td>
-                                                        <td th:text="${person.lifedates}"></td>
-                                                        <td th:text="${person.workdates}"></td>
-                                                        <td th:text="${person.biobox}"></td>
-                                                        <td th:text="${person.photobox}"></td>
-                                                        <td th:text="${person.photofolders}"></td>
-                                                        <td th:text="${person.albumbox}"></td>
-                                                        <td th:text="${person.fragilebox}"></td>
-                                                        <td th:text="${person.audiovisualbox}"></td>
-                                                        <td th:text="${person.oversizebox}"></td>
-                                                        <td th:text="${person.personId}"></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                            <div class="ds-bottom grid-12" style="margin-top: 2em;">                        
+                          <div class="field field-name-body field-type-text-with-summary field-label-hidden">
+                            <div class="field-items">
+                                  <div class="field-item even" property="content:encoded">
+                                      <h2>Results</h2>
+                                      <div>
+                                        <span><a href="/">New Search</a></span>    
+                                        <div class="scroll">
+                                          <span class="scrollTxt">Scroll to see full table &raquo;</span>
+                                        </div>
+                                      </div>
+                                      <div class="number">
+                                        <span th:text="${numberResults}"/>
+                                      </div>      
+                                      <div class="results-table-outer wrapper">
+                                        <table class="results-table inner">                                          
+                                          <tr>
+                                            <th>Title</th>
+                                            <th>Full Name</th>
+                                            <th>Also Known As</th>
+                                            <th>Nations</th>
+                                            <th>States</th>
+                                            <th>Cities</th>
+                                            <th>Life Dates</th>
+                                            <th>Work Dates</th>
+                                            <th>Bio Box</th>
+                                            <th>Photo Box</th>
+                                            <th>Photo Folders</th>
+                                            <th>Album Box</th>
+                                            <th>Fragile Photo Box</th>
+                                            <th>Audiovisual Box</th>
+                                            <th>Oversize Photo Box</th>
+                                            <th>ID</th>
+                                          </tr>
+                                          <tr th:each="person : ${persons}"  style="cursor: pointer"
+                                              th:onclick="'javascript:rowClicked(\'' + ${person.personId} + '\');'">
+                                              <td th:text="${person.title}"></td>
+                                              <td th:text="${person.fullName}"></td>
+                                              <td th:text="${person.alias}"></td>
+                                              <td th:text="${person.nations}"></td>
+                                              <td th:text="${person.states}"></td>
+                                              <td th:text="${person.cities}"></td>
+                                              <td th:text="${person.lifedates}"></td>
+                                              <td th:text="${person.workdates}"></td>
+                                              <td th:text="${person.biobox}"></td>
+                                              <td th:text="${person.photobox}"></td>
+                                              <td th:text="${person.photofolders}"></td>
+                                              <td th:text="${person.albumbox}"></td>
+                                              <td th:text="${person.fragilebox}"></td>
+                                              <td th:text="${person.audiovisualbox}"></td>
+                                              <td th:text="${person.oversizebox}"></td>
+                                              <td th:text="${person.personId}"></td>
+                                          </tr>
+                                        </table>
+                                      </div>  
                                             <div class="paginate">
                                                 <div th:if="${persons.getTotalPages() != 0}"
                                                      class="form-group col-md-11 pagination-centered"> 
@@ -434,12 +436,11 @@
                                                             th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${page}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}" th:text="${page}"></a></li>
                                                         <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption} )}">&rarr;</a></li>
                                                         <!--<li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize},page=${persons.getTotalPages()})}">&raquo;</a></li> -->
-                                                    </ul>
-                                                     
+                                                    </ul>                                                   
                                                 </div>
                                                   
                                                 <div th:unless="${persons.getTotalPages() != 0}"
-                                                     class="form-group col-md-11 pagination-centered">  No results
+                                                     class="form-group col-md-11 pagination-centered">  0 results
                                                     found 
                                                 </div>
                                             </div>
