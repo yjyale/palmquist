@@ -65,6 +65,10 @@ public class AdvancedResultsController {
         // todo simplify
 
      */
+
+
+
+
     @RequestMapping(value = "/multipleitems", method = RequestMethod.GET)
     public Model greetingForm(final Model model,
                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
@@ -106,6 +110,22 @@ public class AdvancedResultsController {
         final Map<String, String> formParams = populateFormMap(fullName, title, alias, cities, states, nations, fullNameOption,
                 titleOption, aliasOption, citiesOption, statesOption, nationsOption);
 
+       /* if (formParams.get(TITLE_OPTION).equalsIgnoreCase("AND") && isValid(title)) {
+            if (formParams.get(FULL_NAME_OPTION).equalsIgnoreCase("OR") && isValid(fullName)) { // each successive one
+                titleOption = "OR";
+            } else if (formParams.get(FULL_NAME_OPTION).equalsIgnoreCase("AND")) { // each successive one
+                if (formParams.get(ALIAS_OPTION).equalsIgnoreCase("OR") && isValid(aliasOption)) { // each successive one
+                    fullNameOption = "OR";
+                } else if (formParams.get(ALIAS_OPTION).equalsIgnoreCase("AND")) { // each successive one
+                    if (formParams.get(NATIONS_OPTION).equalsIgnoreCase("OR") && isValid(nations)) { // each successive one
+                        titleOption = "OR";
+                    }
+                }
+            }
+        }
+        */
+
+
 
         // 2. Populate with PrepareSpecification for each form param
 
@@ -140,16 +160,14 @@ public class AdvancedResultsController {
 
         // Create a Specification object
 
-        // order so that not works with and
+        // 1. order so that not works with and
+        // 2. if precursor is AND and a successor is OR, set the precusor to OR. This is taken care of foundOR
 
-        // skip and/or
         for (final String k : keys) {
-            System.out.println("Adding:" + k);
             final PersonSpecification fieldSpec = specificationsMap.get(k);
             final LogicOperator op = logicalOpMap.get(k);
 
             if (op == LogicOperator.NOT) {
-                System.out.println("Adding not op");
                 spec = addSpec(LogicOperator.NOT, spec, fieldSpec);
             } else {
                 System.out.println("Skipping and/or");
@@ -157,16 +175,29 @@ public class AdvancedResultsController {
         }
 
 
+        int foundOR = 0;
+
         for (final String k : keys) {
-            System.out.println("Adding:" + k);
             final PersonSpecification fieldSpec = specificationsMap.get(k);
             final LogicOperator op = logicalOpMap.get(k);
 
-            if (op == LogicOperator.NOT) {
-                System.out.println("Skipping not op");
-            } else {
-                System.out.println("Adding and/or op");
+            if (op == LogicOperator.OR) {
                 spec = addSpec(op, spec, fieldSpec);
+                foundOR++; // to make AND/OR work
+            } else {
+                System.out.println("Skipping not/and");
+            }
+        }
+
+
+        for (final String k : keys) {
+            final PersonSpecification fieldSpec = specificationsMap.get(k);
+            final LogicOperator op = logicalOpMap.get(k);
+
+            if (op == LogicOperator.AND && foundOR == 0) {
+                spec = addSpec(op, spec, fieldSpec);
+            } else if (op == LogicOperator.AND && foundOR > 0) {
+                spec = addSpec(LogicOperator.OR, spec, fieldSpec);  // this is to make AND/OR searches work
             }
         }
 
@@ -288,6 +319,24 @@ public class AdvancedResultsController {
             this.name = name;
         }
     }
+
+    boolean oneOrExists(
+            @RequestParam(value = "fullNameOption", required = false) String fullNameOption,
+            @RequestParam(value = "titleOption", required = false) String titleOption,
+            @RequestParam(value = "aliasOption", required = false) String aliasOption,
+            @RequestParam(value = "cityOption", required = false) String citiesOption,
+            @RequestParam(value = "stateOption", required = false) String statesOption,
+            @RequestParam(value = "nationOption", required = false) String nationsOption
+    ) {
+
+        if (titleOption.equals("OR") || fullNameOption.equals("OR")
+                || aliasOption.equals("OR") || citiesOption.equals("OR") || statesOption.equals("OR")
+                || nationsOption.equals("OR")) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
