@@ -222,6 +222,7 @@ public class AdvancedResultsController {
             model.addAttribute(f, formParams.get(f));
         }
 
+        model.addAttribute("numberResults", results.getTotalElements());
         return model;
     }
 

@@ -114,9 +114,11 @@ public class QuickSearchResultsController {
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
         // Don't show pagination if no results found
-        if (results.getTotalElements() == 0) {
+        if (results.getTotalElements() != 0) {
             System.out.println("No results found");
-            System.out.println("Total number of pages:" + results.getTotalPages());
+            System.out.println("Total number of elements:" + results.getTotalElements());
+        } else {
+            System.out.println("No results found");
         }
 
         modelAndView.addObject("persons", results);
@@ -125,6 +127,7 @@ public class QuickSearchResultsController {
         modelAndView.addObject("pager", pager);
         modelAndView.addObject("keywords", keywords);
         modelAndView.addObject("keywordsOption", keywordOption);
+        modelAndView.addObject("numberResults", results.getTotalElements());
         return modelAndView;
     }
 
