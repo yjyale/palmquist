@@ -44,6 +44,12 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
 //--><!]]>
 </script>
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
 </head>
 <body class="html not-front not-logged-in page-node page-node- page-node-3493 node-type-page context-404">
   <div id="skip-link">
@@ -180,42 +186,77 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                         <div class="field field-name-body field-type-text-with-summary field-label-hidden">
                           <div class="field-items">
                             <div class="field-item even" property="content:encoded">
+                              <div class="details">
                                 <h2>Details</h2>
-                                <div class="column1">
-                                  <em><p th:text="' Title: '"></p></em>
-                                  <em><p th:text=" 'Full Name: '"></p></em>
-                                  <em><p th:text=" 'Also Known As: '"></p></em>
-                                  <em><p th:text="' Nations: '"></p></em>
-                                  <em><p th:text="' States: '"></p></em>
-                                  <em><p th:text="' Cities: '"></p></em>
-                                  <em><p th:text="' Life Dates: '"></p></em>
-                                  <em><p th:text="' Work Dates: '"></p></em>
-                                  <em><p th:text="' Bio Box: '"></p></em>
-                                  <em><p th:text="' Photo Box: '"></p></em>
-                                  <em><p th:text="' Photo Folders: '"></p></em>
-                                  <em><p th:text="' Album Box: '"></p></em>
-                                  <em><p th:text="' Fragile Photo Box: '"></p></em>
-                                  <em><p th:text="' Audiovisual Box: '"></p></em>
-                                  <em><p th:text="' Oversize Photo Box: '"></p></em>
-                                  <em><p th:text="' ID: '"></p></em>
-                                </div>
-                                <div class="column2">  
-                                  <p th:text="${person.title}"></p> 
-                                  <p th:text="${person.fullName}"></p>
-                                  <p th:text="${person.alias}"></p>
-                                  <p th:text="${person.nations}"></p>
-                                  <p th:text="${person.states}"></p>
-                                  <p th:text="${person.cities}"></p>
-                                  <p th:text="${person.lifedates}"></p>
-                                  <p th:text="${person.workdates}"></p>
-                                  <p th:text="${person.biobox}"></p>
-                                  <p th:text="${person.photobox}"></p>
-                                  <p th:text="${person.photofolders}"></p>
-                                  <p th:text="${person.albumbox}"></p>
-                                  <p th:text="${person.fragilebox}"></p>
-                                  <p th:text="${person.audiovisualbox}"></p>
-                                  <p th:text="${person.oversizebox}"></p>
-                                  <p th:text="${person.personId}"></p>
+                                <a href="javascript:history.back()">&laquo; Back to Results</a>
+                              </div> 
+                              <div>
+                                <table class="detailsTable">
+                                    <tr> 
+                                       <td class="detailsTxt">Title:</td>
+                                       <td th:text="${person.title}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Full Name:</td>
+                                       <td th:text="${person.fullName}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Also Known As:</td>
+                                       <td th:text="${person.alias}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Nations:</td>
+                                       <td th:text="${person.nations}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">States:</td>
+                                       <td th:text="${person.states}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Cities:</td>
+                                       <td th:text="${person.cities}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Life Dates:</td>
+                                       <td th:text="${person.lifedates}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Work Dates:</td>
+                                       <td th:text="${person.workdates}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Bio Box:</td>
+                                       <td th:text="${person.biobox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Photo Box:</td>
+                                       <td th:text="${person.photobox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Photo Folders:</td>
+                                       <td th:text="${person.photofolders}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Album Box:</td>
+                                       <td th:text="${person.albumbox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Fragile Photo Box:</td>
+                                       <td th:text="${person.fragilebox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Audiovisual Box:</td>
+                                       <td th:text="${person.audiovisualbox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">Oversize Photo Box:</td>
+                                       <td th:text="${person.oversizebox}"></td>
+                                    </tr>
+                                    <tr> 
+                                       <td class="detailsTxt">ID:</td>
+                                       <td th:text="${person.personId}"></td>
+                                    </tr>
+                                 </table>
                                 </div>
                              </div>
                            </div>

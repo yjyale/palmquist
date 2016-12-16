@@ -186,11 +186,13 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                   <div class="field-item even" property="content:encoded">
                                       <h2>Results</h2>
                                       <div>
-                                        <span><a href="/">New Search</a></span>
-                                          <div class="scroll">
-                                            <span class="scrollTxt">Scroll to see full table</span>
-                                            <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                                          </div>
+                                        <span><a href="/">New Search</a></span>    
+                                        <div class="scroll">
+                                          <span class="scrollTxt">Scroll to see full table &raquo;</span>
+                                        </div>
+                                      </div>
+                                      <div class="number">                                       
+                                        <span th:text="${numberResults}"/>
                                       </div>      
                                       <div class="results-table-outer wrapper">
                                         <table class="results-table inner">                                          
@@ -250,7 +252,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                           </ul>
                                         </div>
                                         <div id="noResults" th:unless="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
-                                         No results found.
+                                         0 results found.
                                         </div>
                                     </div>  
                                 </div>
