@@ -28,26 +28,27 @@ public class ConnectMSSQLServer {
 
             while (rs.next()) {
                 Person person = new Person();
-                person.setPersonId(Long.valueOf(rs.getString(1)));
-                person.setTitle(rs.getString(2));
-                person.setFullName(rs.getString(3));
-                person.setAlias(rs.getString(4));
-                person.setNations(rs.getString(5));
-                person.setCities(rs.getString(6));
-                person.setLifedates(rs.getString(7));
-                person.setWorkdates(rs.getString(8));
-                person.setBiobox(rs.getString(9));
-                person.setPhotobox(rs.getString(10));
-                person.setPhotofolders(rs.getString(11));
-                person.setPhysicalDescriptionRegular(rs.getString(12));
-                person.setAlbumbox(rs.getString(13));
-                person.setPhysicalDescriptionAlbums(rs.getString(14));
-                person.setFragilebox(rs.getString(15));
-                person.setPhysicalDescriptionsFragilePhoto(rs.getString(16));
-                person.setAudiovisualbox(rs.getString(17));
-                person.setPhysicalDescriptionsAudioVisual(rs.getString(18));
-                person.setOversizebox(rs.getString(19));
-                person.setPhysicalDescriptionsOversize(rs.getString(20));
+                person.setPersonId(Long.valueOf(rs.getString("ID")));
+                person.setTitle(rs.getString("Title"));
+                person.setFullName(rs.getString("Full_Name"));
+                person.setAlias(rs.getString("Also known as Description"));
+                person.setNations(rs.getString("Nations"));
+                person.setStates(rs.getString("State"));
+                person.setCities(rs.getString("Cities"));
+                person.setLifedates(rs.getString("Life Dates"));
+                person.setWorkdates(rs.getString("Work Dates"));
+                person.setBiobox(rs.getString("Bio Box"));
+                person.setPhotobox(rs.getString("Photo Box"));
+                person.setPhotofolders(rs.getString("Photo Folders"));
+                person.setPhysicalDescriptionRegular(rs.getString("Physical Description - Regular"));
+                person.setAlbumbox(rs.getString("Album Box"));
+                person.setPhysicalDescriptionAlbums(rs.getString("Physical Description - Albums"));
+                person.setFragilebox(rs.getString("Fragile Photo Box"));
+                person.setPhysicalDescriptionsFragilePhoto(rs.getString("Physical Description - Fragile Photo"));
+                person.setAudiovisualbox(rs.getString("Audiovisual Box"));
+                person.setPhysicalDescriptionsAudioVisual(rs.getString("Physical Description - Audiovisual"));
+                person.setOversizebox(rs.getString("Oversize Photo Box"));
+                person.setPhysicalDescriptionsOversize(rs.getString("Physical Description - Oversize"));
 
                 person.setIndex(person.getTitle() + " " + person.getFullName() + " " + person.getAlias()
                 + person.getNations() + " " + person.getStates() + " " + person.getCities());

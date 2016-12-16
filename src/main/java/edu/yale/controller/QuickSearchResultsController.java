@@ -24,6 +24,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 
