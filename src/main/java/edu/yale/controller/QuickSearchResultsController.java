@@ -70,9 +70,10 @@ public class QuickSearchResultsController {
         String keywordsStr = greeting.getContent().toLowerCase();
         System.out.println("Keywords:" + keywordsStr);
 
-        if (keywordsStr == null) {
-            System.out.println("Error with page");
-            throw new FormException();
+        if (keywordsStr == null || !keywordsStr.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            keywordsStr = "";
+            //throw new FormException();
         }
 
 
@@ -112,7 +113,7 @@ public class QuickSearchResultsController {
         }
 
         final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,
-                Sort.Direction.ASC, "fullName"));
+                Sort.Direction.ASC, "fullName", "title"));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
         // Don't show pagination if no results found

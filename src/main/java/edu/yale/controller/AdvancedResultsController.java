@@ -91,6 +91,37 @@ public class AdvancedResultsController {
         final int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
         final int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
+        if (title != null && !title.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            title = "";
+        }
+
+        if (fullName!= null && !fullName.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            fullName = "";
+        }
+
+        if (alias!= null && !alias.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            alias = "";
+        }
+
+        if (nations != null && !nations.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            nations = "";
+        }
+
+        if (states != null && !states.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            states = "";
+        }
+
+
+        if (cities != null && !cities.matches(".*[a-zA-Z]+.*")) {
+            System.out.println("Blank page");
+            cities = "";
+        }
+
         // debug:
 
         System.out.println(titleOption);
@@ -204,7 +235,8 @@ public class AdvancedResultsController {
 
         // Finally search
 
-        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,  Sort.Direction.ASC, "fullName"));
+        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,
+                Sort.Direction.ASC, "fullName", "title"));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
         // Populate the model for the form. Add request parameters so pagination can work:
