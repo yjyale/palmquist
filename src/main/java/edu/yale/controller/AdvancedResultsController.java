@@ -9,6 +9,7 @@ import edu.yale.spec.SpecSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -203,7 +204,7 @@ public class AdvancedResultsController {
 
         // Finally search
 
-        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize));
+        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,  Sort.Direction.ASC, "fullName"));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
         // Populate the model for the form. Add request parameters so pagination can work:

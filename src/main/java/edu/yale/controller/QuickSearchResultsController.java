@@ -9,6 +9,7 @@ import edu.yale.spec.SpecSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
@@ -110,7 +111,8 @@ public class QuickSearchResultsController {
             throw new FormException();
         }
 
-        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize));
+        final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,
+                Sort.Direction.ASC, "fullName"));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
 
         // Don't show pagination if no results found
