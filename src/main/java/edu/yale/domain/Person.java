@@ -28,7 +28,7 @@ public class Person {
     private String keywordOption;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "ID")
     private long personId;
 
