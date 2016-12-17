@@ -25,7 +25,7 @@ public class PersonSpecification implements Specification<Person> {
     public Predicate toPredicate(final Root<Person> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
         switch (criteria.getOperation()) {
         case EQUALITY:
-            return builder.equal(root.get(criteria.getKey()), criteria.getValue());
+            return builder.equal(builder.lower(root.get(criteria.getKey())), criteria.getValue());
         case NEGATION:
             return (builder.notLike((builder.lower(root.get(criteria.getKey()))), "%" + (String) criteria.getValue() + "%") );
         case GREATER_THAN:
@@ -40,6 +40,8 @@ public class PersonSpecification implements Specification<Person> {
             return builder.like(root.<String> get(criteria.getKey()), "%" + criteria.getValue());
         case CONTAINS:
             return builder.like((builder.lower(root.<String>get(criteria.getKey()))), "%" + criteria.getValue() + "%");
+            case CONTAINS_ENDING:
+                return builder.like((builder.lower(root.<String>get(criteria.getKey()))), criteria.getValue() + "%");
         default:
             return null;
         }

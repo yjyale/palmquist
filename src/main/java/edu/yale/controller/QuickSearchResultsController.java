@@ -71,7 +71,7 @@ public class QuickSearchResultsController {
         System.out.println("Keywords:" + keywordsStr);
 
         if (keywordsStr == null || !keywordsStr.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
+            System.out.println("Blank query entered");
             keywordsStr = "";
             //throw new FormException();
         }
@@ -81,6 +81,7 @@ public class QuickSearchResultsController {
 
         Specifications spec = null;
 
+        short loop = 0;
 
         // add each Specification object in a loop:
         for (final String s : keywordsList) {
@@ -88,23 +89,33 @@ public class QuickSearchResultsController {
             PersonSpecification personSpecification = new PersonSpecification(
                     new SpecSearchCriteria("index", SearchOperation.CONTAINS, s));
 
-            if (spec == null) {
-                spec = Specifications.where(personSpecification);
-            } else {
 
                 if (keywordOption.contains("ALL")) {
-                    spec = spec.and(personSpecification);
+                   if (loop == 0) {
+                        spec = Specifications.where(personSpecification);
+                    } else {
+                        spec = spec.and(personSpecification);
+                    }
                 } else if (keywordOption.contains("ANY")) {
-                    spec = spec.or(personSpecification);
+                    if (loop == 0) {
+                        spec = Specifications.where(personSpecification);
+                    } else {
+                        spec = spec.or(personSpecification);
+                    }
                 } else if (keywordOption.contains("entire phrase")) {
+                    System.out.println("Searching for entire phrase");
                     spec = Specifications.where(new PersonSpecification(
-                            new SpecSearchCriteria("index", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
+                            new SpecSearchCriteria("title", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
+                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, keywordsStr)));
+                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("alias", SearchOperation.CONTAINS, keywordsStr)));
+                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("nations", SearchOperation.CONTAINS, keywordsStr)));
+                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("states", SearchOperation.CONTAINS, keywordsStr)));
+                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("cities", SearchOperation.CONTAINS, keywordsStr)));
                     break;
                 } else {
                     System.out.println("Unknown option");
                 }
-            }
-
+            loop++;
         }
 
         if (spec == null) {
@@ -118,10 +129,9 @@ public class QuickSearchResultsController {
 
         // Don't show pagination if no results found
         if (results.getTotalElements() != 0) {
-            System.out.println("No results found");
             System.out.println("Total number of elements:" + results.getTotalElements());
         } else {
-            System.out.println("No results found");
+            System.out.println("No results found!");
         }
 
         modelAndView.addObject("persons", results);
