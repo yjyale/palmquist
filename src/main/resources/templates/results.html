@@ -240,7 +240,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                         <div th:if="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
                                           <ul class="pagination">
                                             <li th:class="${persons.getNumber() == 0} ? disabled">
-                                              <a class="pageLink" th:href="@{/results(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content})}">&larr;</a>
+                                              <a class="pageLink" th:href="@{/results(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&larr;</a>
                                             </li>
                                             <li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
                                               th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}">
