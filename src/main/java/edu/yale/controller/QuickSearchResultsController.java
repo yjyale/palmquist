@@ -83,11 +83,21 @@ public class QuickSearchResultsController {
 
         short loop = 0;
 
+        boolean keywordsOnly = true;
+
         // add each Specification object in a loop:
         for (final String s : keywordsList) {
 
-            PersonSpecification personSpecification = new PersonSpecification(
-                    new SpecSearchCriteria("index", SearchOperation.CONTAINS, s));
+            PersonSpecification personSpecification = null;
+
+
+            if (keywordsOnly) {
+                personSpecification = new PersonSpecification(
+                        new SpecSearchCriteria("index", SearchOperation.CONTAINS_WITH_SPACE, s)); // so that lombard does not come up in search for bard
+            } else {
+                personSpecification = new PersonSpecification(
+                        new SpecSearchCriteria("index", SearchOperation.CONTAINS, s));
+            }
 
 
                 if (keywordOption.contains("ALL")) {

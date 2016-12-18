@@ -40,6 +40,9 @@ public class PersonSpecification implements Specification<Person> {
             return builder.like(root.<String> get(criteria.getKey()), "%" + criteria.getValue());
         case CONTAINS:
             return builder.like((builder.lower(root.<String>get(criteria.getKey()))), "%" + criteria.getValue() + "%");
+
+            case CONTAINS_WITH_SPACE:
+                return builder.like((builder.lower(root.<String>get(criteria.getKey()))), "% " + criteria.getValue() + "%");
             case CONTAINS_ENDING:
                 return builder.like((builder.lower(root.<String>get(criteria.getKey()))), criteria.getValue() + "%");
         default:

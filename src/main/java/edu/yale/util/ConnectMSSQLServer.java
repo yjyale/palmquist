@@ -50,8 +50,29 @@ public class ConnectMSSQLServer {
                 person.setOversizebox(rs.getString("Oversize Photo Box"));
                 person.setPhysicalDescriptionsOversize(rs.getString("Physical Description - Oversize"));
 
-                person.setIndex(person.getTitle() + " " + person.getFullName() + " " + person.getAlias()
-                + person.getNations() + " " + person.getStates() + " " + person.getCities());
+
+                String title = person.getTitle();
+
+                if (title == null) {
+                    title = " ";
+                } else {
+                    title = " " + title;
+                }
+
+                String fullName = person.getFullName();
+
+                if (fullName != null && fullName.contains("-")) {
+                    fullName = fullName.replace("-", " ");
+                }
+
+                String alias = person.getAlias();
+
+                if (alias != null && alias.contains("-")) {
+                    alias = alias.replace("-", " ");
+                }
+
+                person.setIndex(title + " " + fullName + " " + alias
+                + " " + person.getNations() + " " + person.getStates() + " " + person.getCities());
 
                 persons.add(person);
                 //System.out.println("Saved:" + person);

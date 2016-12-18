@@ -1,7 +1,8 @@
 package edu.yale.spec;
 
 public enum SearchOperation {
-    EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, ENDS_WITH, CONTAINS, CONTAINS_ENDING;
+    EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, ENDS_WITH, CONTAINS, CONTAINS_ENDING,
+    CONTAINS_WITH_SPACE;
 
     public static final String[] SIMPLE_OPERATION_SET = { ":", "!", ">", "<", "~" };
 
