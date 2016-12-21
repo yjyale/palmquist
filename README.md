@@ -9,6 +9,8 @@ Installation
 
 - Install [Maven](https://maven.apache.org/) (and [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)). Download sqljdbc4 from [Microsoft] (https://www.microsoft.com/en-us/download/details.aspx?id=11774).
 
+- Copy file db.prop to src/main/resources (as documented below).
+
 * Build and Launch
 ```sh
 mvn install:install-file -Dfile=sqljdbc4.jar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion=4.0 -Dpackaging=jar
@@ -26,6 +28,18 @@ Development
 The html files are in src/main/resources/templates.
 
 All the backend logic is in package edu.yale.
+
+
+Configuration
+--------------
+
+Copy the contents of file db.properties to db.prop (under src/main/resources)
+
+Just add username and password to the SqlServer database.
+
+connection=jdbc:sqlserver://brothers.library.yale.edu:1433;databaseName=test_pamoja
+user=
+password=
 
 
 Try it
