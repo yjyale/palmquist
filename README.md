@@ -37,10 +37,11 @@ Copy the contents of file db.properties to db.prop (under src/main/resources)
 
 Just add username and password to the SqlServer database.
 
+```
 connection=jdbc:sqlserver://brothers.library.yale.edu:1433;databaseName=test_pamoja
 user=
 password=
-
+```
 
 Try it
 --------------
