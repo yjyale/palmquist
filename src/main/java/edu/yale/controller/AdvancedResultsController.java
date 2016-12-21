@@ -16,13 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Advanced Search
@@ -68,8 +65,6 @@ public class AdvancedResultsController {
      */
 
 
-
-
     @RequestMapping(value = "/multipleitems", method = RequestMethod.GET)
     public Model greetingForm(final Model model,
                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
@@ -96,12 +91,12 @@ public class AdvancedResultsController {
             title = "";
         }
 
-        if (fullName!= null && !fullName.matches(".*[a-zA-Z]+.*")) {
+        if (fullName != null && !fullName.matches(".*[a-zA-Z]+.*")) {
             System.out.println("Blank page");
             fullName = "";
         }
 
-        if (alias!= null && !alias.matches(".*[a-zA-Z]+.*")) {
+        if (alias != null && !alias.matches(".*[a-zA-Z]+.*")) {
             System.out.println("Blank page");
             alias = "";
         }
@@ -142,23 +137,6 @@ public class AdvancedResultsController {
         final Map<String, String> formParams = populateFormMap(fullName, title, alias, cities, states, nations, fullNameOption,
                 titleOption, aliasOption, citiesOption, statesOption, nationsOption);
 
-       /* if (formParams.get(TITLE_OPTION).equalsIgnoreCase("AND") && isValid(title)) {
-            if (formParams.get(FULL_NAME_OPTION).equalsIgnoreCase("OR") && isValid(fullName)) { // each successive one
-                titleOption = "OR";
-            } else if (formParams.get(FULL_NAME_OPTION).equalsIgnoreCase("AND")) { // each successive one
-                if (formParams.get(ALIAS_OPTION).equalsIgnoreCase("OR") && isValid(aliasOption)) { // each successive one
-                    fullNameOption = "OR";
-                } else if (formParams.get(ALIAS_OPTION).equalsIgnoreCase("AND")) { // each successive one
-                    if (formParams.get(NATIONS_OPTION).equalsIgnoreCase("OR") && isValid(nations)) { // each successive one
-                        titleOption = "OR";
-                    }
-                }
-            }
-        }
-        */
-
-
-
         // 2. Populate with PrepareSpecification for each form param
 
         final Map<String, String> requestParams = populateFormSansOptions(fullName, title, alias, cities, states, nations);
@@ -179,7 +157,6 @@ public class AdvancedResultsController {
         }
 
         // re organize the order:
-
 
 
         // 3. Create a LogicOperator map, one entry for each form logic param
@@ -321,7 +298,6 @@ public class AdvancedResultsController {
     }
 
 
-
     private static Specifications addSpec(final LogicOperator logicOperation,
                                           final Specifications specification, final PersonSpecification add) {
 
@@ -370,7 +346,6 @@ public class AdvancedResultsController {
         }
         return false;
     }
-
 
 
 }

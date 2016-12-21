@@ -22,27 +22,9 @@ public class SingleItemController {
         this.personService = studentService;
     }
 
-    /*
-        The request looks something like:
-        http://localhost:8080/singleitem?title=&fullName=Bard&alias=&nations=&states=&cities=
-     */
     @RequestMapping(value = "/singleitem", method = RequestMethod.GET)
     public String greetingForm(final Model model,
-                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
-                               @RequestParam(value = "page", required = false) Integer page,
-                               @RequestParam(value = "id", required = false) Long id,
-                               @RequestParam(value = "fullName", required = false) String fullName,
-                               @RequestParam(value = "title", required = false) String title,
-                               @RequestParam(value = "alias", required = false) String alias,
-                               @RequestParam(value = "cities", required = false) String cities,
-                               @RequestParam(value = "states", required = false) String states,
-                               @RequestParam(value = "nations", required = false) String nations,
-                               @RequestParam(value = "fullNameOption", required = false) String fullNameOption,
-                               @RequestParam(value = "titleOption", required = false) String titleOption,
-                               @RequestParam(value = "aliasOption", required = false) String aliasOption,
-                               @RequestParam(value = "cityOption", required = false) String citiesOption,
-                               @RequestParam(value = "stateOption", required = false) String statesOption,
-                               @RequestParam(value = "nationOption", required = false) String nationsOption) {
+                               @RequestParam(value = "id", required = false) Long id) {
 
         Person person;
 
@@ -57,9 +39,8 @@ public class SingleItemController {
 
             model.addAttribute("person", person);
             return "singleitem";
-        } else {
-            return "error";
         }
+        return "error";
     }
 
 }

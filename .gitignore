@@ -24,3 +24,4 @@ target/
 # Other files #
 *.lst
 .idea/
+*.prop

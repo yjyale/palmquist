@@ -2,7 +2,6 @@ package edu.yale.domain;
 
 /**
  * Used to calculate span of buttons which will be displayed on a page
- *
  */
 public class Pager {
 

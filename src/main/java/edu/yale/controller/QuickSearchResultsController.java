@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,13 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -55,7 +48,7 @@ public class QuickSearchResultsController {
     public ModelAndView showPersonsPage(@ModelAttribute Greeting greeting,
                                         @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                         @RequestParam(value = "page", required = false) Integer page,
-                                        @RequestParam(value= "keywords", required=false) String keywords,
+                                        @RequestParam(value = "keywords", required = false) String keywords,
                                         @RequestParam(value = "keywordsOption", required = false) String keywordsOption) {
 
         ModelAndView modelAndView = new ModelAndView("results");
@@ -77,7 +70,7 @@ public class QuickSearchResultsController {
         }
 
 
-        List<String> keywordsList = Arrays.asList(keywordsStr.split("\\s+"));
+        final List<String> keywordsList = Arrays.asList(keywordsStr.split("\\s+"));
 
         Specifications spec = null;
 
@@ -100,31 +93,31 @@ public class QuickSearchResultsController {
             }
 
 
-                if (keywordOption.contains("ALL")) {
-                   if (loop == 0) {
-                        spec = Specifications.where(personSpecification);
-                    } else {
-                        spec = spec.and(personSpecification);
-                    }
-                } else if (keywordOption.contains("ANY")) {
-                    if (loop == 0) {
-                        spec = Specifications.where(personSpecification);
-                    } else {
-                        spec = spec.or(personSpecification);
-                    }
-                } else if (keywordOption.contains("entire phrase")) {
-                    System.out.println("Searching for entire phrase");
-                    spec = Specifications.where(new PersonSpecification(
-                            new SpecSearchCriteria("title", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
-                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, keywordsStr)));
-                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("alias", SearchOperation.CONTAINS, keywordsStr)));
-                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("nations", SearchOperation.CONTAINS, keywordsStr)));
-                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("states", SearchOperation.CONTAINS, keywordsStr)));
-                    spec = spec.or(new PersonSpecification(new SpecSearchCriteria("cities", SearchOperation.CONTAINS, keywordsStr)));
-                    break;
+            if (keywordOption.contains("ALL")) {
+                if (loop == 0) {
+                    spec = Specifications.where(personSpecification);
                 } else {
-                    System.out.println("Unknown option");
+                    spec = spec.and(personSpecification);
                 }
+            } else if (keywordOption.contains("ANY")) {
+                if (loop == 0) {
+                    spec = Specifications.where(personSpecification);
+                } else {
+                    spec = spec.or(personSpecification);
+                }
+            } else if (keywordOption.contains("entire phrase")) {
+                System.out.println("Searching for entire phrase");
+                spec = Specifications.where(new PersonSpecification(
+                        new SpecSearchCriteria("title", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
+                spec = spec.or(new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, keywordsStr)));
+                spec = spec.or(new PersonSpecification(new SpecSearchCriteria("alias", SearchOperation.CONTAINS, keywordsStr)));
+                spec = spec.or(new PersonSpecification(new SpecSearchCriteria("nations", SearchOperation.CONTAINS, keywordsStr)));
+                spec = spec.or(new PersonSpecification(new SpecSearchCriteria("states", SearchOperation.CONTAINS, keywordsStr)));
+                spec = spec.or(new PersonSpecification(new SpecSearchCriteria("cities", SearchOperation.CONTAINS, keywordsStr)));
+                break;
+            } else {
+                System.out.println("Unknown option");
+            }
             loop++;
         }
 
@@ -153,7 +146,6 @@ public class QuickSearchResultsController {
         modelAndView.addObject("numberResults", results.getTotalElements());
         return modelAndView;
     }
-
 
 
 }

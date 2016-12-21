@@ -12,8 +12,7 @@ public class AdvancedController {
 
     @RequestMapping(value = "/multiple_items", method = RequestMethod.GET)
     public ModelAndView greetingForm(@ModelAttribute Person person) {
-        ModelAndView modelAndView = new ModelAndView("person");
-        return modelAndView;
+        return new ModelAndView("person");
     }
 }
 

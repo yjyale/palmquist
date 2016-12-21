@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Represents a photographer
  */
 @Entity
-@Table (name = "Palmquist")
+@Table(name = "Palmquist")
 public class Person {
 
     @Transient
@@ -29,68 +29,68 @@ public class Person {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "ID")
+    @Column(name = "ID")
     private long personId;
 
     @Column
     private String title;
 
-    @Column (name  = "Full_Name")
+    @Column(name = "Full_Name")
     private String fullName;
 
-    @Column (name  = "`Also known as Description`")
+    @Column(name = "`Also known as Description`")
     private String alias;
 
-    @Column (name = "State")
+    @Column(name = "State")
     private String states;
 
-    @Column (name = "Cities")
+    @Column(name = "Cities")
     private String cities;
 
-    @Column (name  = "Nations")
+    @Column(name = "Nations")
     private String nations;
 
-    @Column (name  = "`Life Dates`")
+    @Column(name = "`Life Dates`")
     private String lifedates;
 
-    @Column (name  = "`Work Dates`")
+    @Column(name = "`Work Dates`")
     private String workdates;
 
-    @Column (name  = "`Bio Box`")
+    @Column(name = "`Bio Box`")
     private String biobox;
 
-    @Column (name  = "`Photo Box`")
+    @Column(name = "`Photo Box`")
     private String photobox;
 
-    @Column (name  = "`Photo Folders`")
+    @Column(name = "`Photo Folders`")
     private String photofolders;
 
-    @Column (name  = "`Album Box`")
+    @Column(name = "`Album Box`")
     private String albumbox;
 
-    @Column (name = "`Physical Description - Regular`")
+    @Column(name = "`Physical Description - Regular`")
     private String physicalDescriptionRegular;
 
-    @Column (name = "`Physical Description - Albums`")
+    @Column(name = "`Physical Description - Albums`")
     private String physicalDescriptionAlbums;
 
-    @Column (name = "`Physical Description - Fragile Photo`")
+    @Column(name = "`Physical Description - Fragile Photo`")
     private String physicalDescriptionsFragilePhoto;
 
-    @Column (name = "`Physical Description - Audiovisual")
+    @Column(name = "`Physical Description - Audiovisual")
     private String physicalDescriptionsAudioVisual;
 
-    @Column (name = "`Physical Description - Oversize")
+    @Column(name = "`Physical Description - Oversize")
     private String physicalDescriptionsOversize;
 
 
-    @Column (name  = "`Fragile Photo Box`")
+    @Column(name = "`Fragile Photo Box`")
     private String fragilebox;
 
-    @Column (name  = "`Audiovisual Box`")
+    @Column(name = "`Audiovisual Box`")
     private String audiovisualbox;
 
-    @Column (name  = "`Oversize Photo Box`")
+    @Column(name = "`Oversize Photo Box`")
     private String oversizebox;
 
     // TODO (move fields elsewhere)
@@ -113,7 +113,7 @@ public class Person {
     private String aliasOption;
 
     // default test field value .. todo remove the default value
-    @Column (name ="index")
+    @Column(name = "index")
     private String index = "Madame Bard";
 
 

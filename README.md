@@ -16,8 +16,19 @@ cd palmquist
 mvn clean install
 cd target
 java -jar palmquist-0.0.1-SNAPSHOT.war
+
+# or deploy the resulting .war to Tomcat
+
 ```
+
+Development
+--------------
+The html files are in src/main/resources/templates.
+
+All the backend logic is in package edu.yale.
+
 
 Try it
 --------------
 - Hit: http://localhost:8080/
+- For Tomcat: http://localhost:8080/palmquist-1.0.0-SNAPSHOT

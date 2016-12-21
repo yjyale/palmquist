@@ -12,17 +12,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class ConnectMSSQLServer {
-    public List<Person> dbConnect(String db_connect_string,
-                                  String db_userid,
-                                  String db_password) {
+
+    /**
+     * Connects to the database and populates an in-memory database.
+     *
+     * @param db_connect_string
+     * @param db_userid
+     * @param db_password
+     * @return
+     */
+    public List<Person> populateIndex(String db_connect_string,
+                                      String db_userid,
+                                      String db_password) {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(db_connect_string,
                     db_userid, db_password);
-            System.out.println("connected");
+            System.out.println("Connection to database OK");
             Statement statement = conn.createStatement();
             String queryString = "select * from palmquist";
-            //String queryString = "select * from palmquist where ID < 1000";
+
+            boolean debug = false;
+
+            if (debug) {
+                queryString = "select * from palmquist where ID < 1000";
+            }
+
             ResultSet rs = statement.executeQuery(queryString);
             List<Person> persons = new ArrayList<>();
 
@@ -61,7 +76,7 @@ public class ConnectMSSQLServer {
 
                 String fullName = person.getFullName();
 
-                if (fullName != null && fullName.contains("-")) {
+                if (fullName != null && fullName.contains("-")) { //e.g. Marie-Jones should be Marie Jones for search
                     fullName = fullName.replace("-", " ");
                 }
 
@@ -71,11 +86,11 @@ public class ConnectMSSQLServer {
                     alias = alias.replace("-", " ");
                 }
 
-                person.setIndex(title + " " + fullName + " " + alias
-                + " " + person.getNations() + " " + person.getStates() + " " + person.getCities());
+                final String index = title + " " + fullName + " " + alias
+                        + " " + person.getNations() + " " + person.getStates() + " " + person.getCities();
 
+                person.setIndex(index);
                 persons.add(person);
-                //System.out.println("Saved:" + person);
             }
             statement.close();
             rs.close();
@@ -83,12 +98,9 @@ public class ConnectMSSQLServer {
             return persons;
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return Collections.emptyList();
-
     }
-
 
 
 }
