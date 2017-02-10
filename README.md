@@ -33,9 +33,10 @@ All the backend logic is in package edu.yale.
 Configuration
 --------------
 
-Copy the contents of file db.properties to db.prop (under src/main/resources)
+Specify the path to the properties file in DatabaseInitializer class. Specify
+either db.prop for brothers or aws.prop for AWS EC2 instance.
 
-Just add username and password to the SqlServer database.
+Just add the username and password to the SqlServer database or RDS instance.
 
 ```
 connection=jdbc:sqlserver://brothers.library.yale.edu:1433;databaseName=test_pamoja

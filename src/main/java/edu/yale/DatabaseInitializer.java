@@ -38,7 +38,11 @@ public class DatabaseInitializer {
         try {
             Properties prop = new Properties();
             InputStream input = null;
-            input = new FileInputStream("src/main/resources/db.prop");
+            // Change this as necessary
+            String dir = "webapps/ROOT/WEB-INF/classes/aws.prop";
+            System.out.println("Looking for prop file in directory = " + dir + " current cwd " +
+                    System.getProperty("user.dir"));
+            input = new FileInputStream(dir);
             prop.load(input);
             String dbString = prop.getProperty("connection");
             String user = prop.getProperty("user");
