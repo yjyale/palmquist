@@ -29,6 +29,7 @@ public class DatabaseInitializer {
      */
     @PostConstruct
     public void populateDatabase() {
+
         System.out.println("Populating data to cache...");
 
         final ConnectMSSQLServer util = new ConnectMSSQLServer();
@@ -36,13 +37,21 @@ public class DatabaseInitializer {
         List<Person> db = Collections.emptyList();
 
         try {
-            Properties prop = new Properties();
-            InputStream input = null;
-            // Change this as necessary
-            String dir = "webapps/ROOT/WEB-INF/classes/aws.prop";
-            System.out.println("Looking for prop file in directory = " + dir + " current cwd " +
-                    System.getProperty("user.dir"));
-            input = new FileInputStream(dir);
+            final Properties prop = new Properties();
+
+            // NOTE: Change the database path this as necessary:
+
+            // for AWS:
+
+            final String dir =  "/tmp/aws.prop";  //src/main/resources/db.prop
+
+            // for brothers:
+
+            //final String dir =  "src/main/resources/db.prop";
+
+            System.out.println("Looking for db prop file in directory = " + dir);
+
+            InputStream input = new FileInputStream(dir);
             prop.load(input);
             String dbString = prop.getProperty("connection");
             String user = prop.getProperty("user");
