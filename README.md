@@ -52,15 +52,15 @@ For the remote server, scp to the AWS server the .war in target/
 rename it as ROOT.war so it deploys as the default context, as follows:
 
 ```
-scp -i yul-palmquist-prod-app.pem palmquist/target/palmquist-0.0.1-SNAPSHOT.war ec2-user@10.5.68.174:/tmp/ROOT.war
-scp -i yul-palmquist-prod-app.pem palmquist/src/main/resources/aws.prop ec2-user@10.5.68.174:/tmp
+scp -i yul-palmquist-prod-app.pem palmquist/target/palmquist-0.0.1-SNAPSHOT.war ec2-user@10.5.68.174:/home/ec2-user
+scp -i yul-palmquist-prod-app.pem palmquist/src/main/resources/aws.prop ec2-user@10.5.68.174:/home/ec2-user
 
 ```
 
 The folder where you're running this command should have the .pem file. Check paths to make
 sure you can reach the .war file.
 
-We're copying the aws.prop file to /tmp/aws.prop, so that it can pick up db properties
+We're copying the aws.prop file to /home/ec2-user, so that it can pick up db properties
 on load. You can delete it afterwards once the app is up and running.
 
 Once you've copied (using scp) these files, log into AWS, and copy the .war file to /usr/share/tomcat/webapps.
