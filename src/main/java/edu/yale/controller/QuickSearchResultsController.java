@@ -58,13 +58,13 @@ public class QuickSearchResultsController {
         int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
         String keywordOption = greeting.getKeywordOption();
-        System.out.println("Keywords option" + keywordOption);
+        // System.out.println("Keywords option" + keywordOption);
 
         String keywordsStr = greeting.getContent().toLowerCase();
-        System.out.println("Keywords:" + keywordsStr);
+        // System.out.println("Keywords:" + keywordsStr);
 
         if (keywordsStr == null || !keywordsStr.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank query entered");
+            // System.out.println("Blank query entered");
             keywordsStr = "";
             //throw new FormException();
         }
@@ -106,7 +106,7 @@ public class QuickSearchResultsController {
                     spec = spec.or(personSpecification);
                 }
             } else if (keywordOption.contains("entire phrase")) {
-                System.out.println("Searching for entire phrase");
+                // System.out.println("Searching for entire phrase");
                 spec = Specifications.where(new PersonSpecification(
                         new SpecSearchCriteria("title", SearchOperation.CONTAINS, keywordsStr))); //forget the previous set
                 spec = spec.or(new PersonSpecification(new SpecSearchCriteria("fullName", SearchOperation.CONTAINS, keywordsStr)));
@@ -116,26 +116,19 @@ public class QuickSearchResultsController {
                 spec = spec.or(new PersonSpecification(new SpecSearchCriteria("cities", SearchOperation.CONTAINS, keywordsStr)));
                 break;
             } else {
-                System.out.println("Unknown option");
+                // System.out.println("Unknown option");
             }
             loop++;
         }
 
         if (spec == null) {
-            System.out.println("spec null");
+            // System.out.println("spec null");
             throw new FormException();
         }
 
         final Page<Person> results = personService.findAll(spec, new PageRequest(evalPage, evalPageSize,
                 Sort.Direction.ASC, "fullName", "title"));
         final Pager pager = new Pager(results.getTotalPages(), results.getNumber(), BUTTONS_TO_SHOW);
-
-        // Don't show pagination if no results found
-        if (results.getTotalElements() != 0) {
-            System.out.println("Total number of elements:" + results.getTotalElements());
-        } else {
-            System.out.println("No results found!");
-        }
 
         modelAndView.addObject("persons", results);
         modelAndView.addObject("selectedPageSize", evalPageSize);

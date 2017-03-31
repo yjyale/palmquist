@@ -14,8 +14,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 @Component
 public class DatabaseInitializer {
+
+    private final Logger logger = getLogger(this.getClass());
+
 
     private PersonService personService;
 
@@ -30,7 +36,7 @@ public class DatabaseInitializer {
     @PostConstruct
     public void populateDatabase() {
 
-        System.out.println("Populating data to cache...");
+        logger.debug("Populating data to cache...");
 
         final ConnectMSSQLServer util = new ConnectMSSQLServer();
 
@@ -49,7 +55,7 @@ public class DatabaseInitializer {
 
             //final String dir =  "src/main/resources/db.prop";
 
-            System.out.println("Looking for db prop file in directory = " + dir);
+            logger.debug("Looking for db prop file in directory = " + dir);
 
             InputStream input = new FileInputStream(dir);
             prop.load(input);
@@ -57,17 +63,19 @@ public class DatabaseInitializer {
             String user = prop.getProperty("user");
             String pwd = prop.getProperty("pwd");
             db = util.populateIndex(dbString, user, pwd);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Error connecting to the database", e);
+            // throw e;
         }
 
         // save to cache
 
         try {
-            System.out.println("Saving to local database");
+            logger.debug("Saving to local cache");
             personService.save(db);
         } catch (Exception e) {
-            e.printStackTrace();
+          logger.error("Error setting up cache", e);
+          // throw e;
         }
 
     }

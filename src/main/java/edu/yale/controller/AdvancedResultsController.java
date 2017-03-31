@@ -87,33 +87,27 @@ public class AdvancedResultsController {
         final int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
         if (title != null && !title.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             title = "";
         }
 
         if (fullName != null && !fullName.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             fullName = "";
         }
 
         if (alias != null && !alias.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             alias = "";
         }
 
         if (nations != null && !nations.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             nations = "";
         }
 
         if (states != null && !states.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             states = "";
         }
 
 
         if (cities != null && !cities.matches(".*[a-zA-Z]+.*")) {
-            System.out.println("Blank page");
             cities = "";
         }
 
@@ -147,10 +141,10 @@ public class AdvancedResultsController {
         for (String s : reqParamSet) {
             if (isValid(requestParams.get(s))) {
                 if (formParams.get(s.concat("Option")).contains("NOT")) {
-                    System.out.println("Found a NOT");
+                    // System.out.println("Found a NOT");
                     specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.NEGATION, requestParams.get(s))));
                 } else {
-                    System.out.println("Form param:" + s.concat("Option"));
+                    // System.out.println("Form param:" + s.concat("Option"));
                     specificationsMap.put(s, new PersonSpecification(new SpecSearchCriteria(s, SearchOperation.CONTAINS, requestParams.get(s))));
                 }
             }
@@ -178,8 +172,6 @@ public class AdvancedResultsController {
 
             if (op == LogicOperator.NOT) {
                 spec = addSpec(LogicOperator.NOT, spec, fieldSpec);
-            } else {
-                System.out.println("Skipping and/or");
             }
         }
 
@@ -193,9 +185,7 @@ public class AdvancedResultsController {
             if (op == LogicOperator.OR) {
                 spec = addSpec(op, spec, fieldSpec);
                 foundOR++; // to make AND/OR work
-            } else {
-                System.out.println("Skipping not/and");
-            }
+            } 
         }
 
 
@@ -349,4 +339,3 @@ public class AdvancedResultsController {
 
 
 }
-

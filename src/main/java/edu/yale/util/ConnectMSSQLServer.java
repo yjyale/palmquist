@@ -11,7 +11,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class ConnectMSSQLServer {
+
+  private final Logger logger = getLogger(this.getClass());
+
 
     /**
      * Connects to the database and populates an in-memory database.
@@ -28,14 +34,14 @@ public class ConnectMSSQLServer {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(db_connect_string,
                     db_userid, db_password);
-            System.out.println("Connection to database OK");
+            logger.debug("Connection to database OK");
             Statement statement = conn.createStatement();
             String queryString = "select * from palmquist";
 
-            boolean debug = false;
+            boolean debug = false; // change as necessary
 
             if (debug) {
-                queryString = "select * from palmquist where ID < 1000";
+                queryString = "select * from palmquist where ID < 1000"; // change as necesssary
             }
 
             ResultSet rs = statement.executeQuery(queryString);
@@ -97,7 +103,8 @@ public class ConnectMSSQLServer {
             conn.close();
             return persons;
         } catch (Exception e) {
-            e.printStackTrace();
+
+            logger.error("error with db:", e);
         }
         return Collections.emptyList();
     }
