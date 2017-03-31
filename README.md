@@ -1,12 +1,11 @@
 # palmquist
 
 This webapp is a rewrite of the Beinecke Library legacy application Palmquist. 
-The project can be built using Maven, and the resulting .war file can be dropped into Tomcat (or just launched with `java`).
+
+The project can be built using Maven, and the resulting .war file can be dropped into Tomcat (or just launched with `java -jar`).
 The stack is Spring Boot/MVC/Data.
 
-The html files are in src/main/resources/templates.
-
-All the backend logic is in package edu.yale.
+The HTML files are in src/main/resources/templates. All the backend logic is in package edu.yale.
 
 
 Installation
@@ -46,8 +45,17 @@ java -jar target/palmquist-0.0.1-SNAPSHOT.war
 Deployment to AWS
 ------------------
 
-For the remote server, 'scp' the .war in target/
- to /usr/share/tomcat/webapps, and the .prop file (which has AWS credentials) as follows:
+Create aws.prop file. Just fill in the username and password:
+
+```
+connection = jdbc:sqlserver://dbpalmquist.ckao2ciychcj.us-east-1.rds.amazonaws.com:1433;databaseName=palmquist
+user =
+password =
+```
+
+'scp' the .war in target/
+ to /usr/share/tomcat/webapps, and the aws.prop file (which has AWS credentials) as follows.
+ Don't forget to change the IP of AWS server in the following commands:
 
 ```
 scp -i yul-palmquist-prod-app.pem palmquist/target/palmquist-0.0.1-SNAPSHOT.war ec2-user@10.5.68.174:/home/ec2-user
@@ -60,7 +68,8 @@ sudo cp ~/ROOT.war /usr/share/tomcat/webapps/
 
 ```
 
-The folder where you're running this command should have the .pem file. Check paths to make
+The folder where you're running this command should have the .pem file for
+AWS authentication. Check paths to make
 sure you can reach the .war file.
 
 We're copying the aws.prop file to /opt/palqmuist/, so that it can be pick up database properties
@@ -76,4 +85,4 @@ Try it
 --------------
 - Hit (for local testing): http://localhost:8080/
 - For local Tomcat: http://localhost:8080/palmquist-1.0.0-SNAPSHOT
-- For AWS Tomcat Instance: http://server:8080 (e.g., http://10.5.68.174:8080/)
+- For AWS Tomcat Instance: http://AWS:8080
