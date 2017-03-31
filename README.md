@@ -13,15 +13,14 @@ Installation
 --------------
 
 
-- Install [Maven](https://maven.apache.org/) (and [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)). Download sqljdbc4 from [Microsoft] (https://www.microsoft.com/en-us/download/details.aspx?id=11774).
+- Install [Maven](https://maven.apache.org/) (and [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)).
 
-- Specify the path to the database connection properties file in
-src/main/java/edu/yale/DatabaseInitializer class.
+- Download sqljdbc4 from [Microsoft] (https://www.microsoft.com/en-us/download/details.aspx?id=11774).
 
-- Specify either db.prop for "brothers server" or aws.prop for AWS RDS database called palmquist.
+- If necessary, adjust the path to the database connection properties file in
+src/main/java/edu/yale/DatabaseInitializer class. By default, it points to AWS. Specify either db.prop for
+"brothers" or aws.prop for AWS RDS database called palmquist in class DatabaseInitializer.java.
 
-- Copy the file to /tmp directory and make sure it matches DatabaseInitializer (e.g.,
-/tmp/aws.prop in both places)
 
 * Build and Launch
 
@@ -47,28 +46,34 @@ java -jar target/palmquist-0.0.1-SNAPSHOT.war
 Deployment to AWS
 ------------------
 
-For the remote server, scp to the AWS server the .war in target/
- to /usr/share/tomcat/webapps, and
-rename it as ROOT.war so it deploys as the default context, as follows:
+For the remote server, 'scp' the .war in target/
+ to /usr/share/tomcat/webapps, and the .prop file (which has AWS credentials) as follows:
 
 ```
 scp -i yul-palmquist-prod-app.pem palmquist/target/palmquist-0.0.1-SNAPSHOT.war ec2-user@10.5.68.174:/home/ec2-user
-scp -i yul-palmquist-prod-app.pem palmquist/src/main/resources/aws.prop ec2-user@10.5.68.174:/home/ec2-user
+scp -i yul-palmquist-prod-app.pem aws.prop ec2-user@10.5.68.174:/opt/palmquist
+
+ssh -i yul-palmquist-prod-app.pem ec2-user@10.5.68.174
+rm -rf /usr/share/tomcat/webapps/ROOT
+rm -rf /usr/share/tomcat/webapps/ROOT.war
+sudo cp ~/ROOT.war /usr/share/tomcat/webapps/
 
 ```
 
 The folder where you're running this command should have the .pem file. Check paths to make
 sure you can reach the .war file.
 
-We're copying the aws.prop file to /home/ec2-user, so that it can pick up db properties
-on load. You can delete it afterwards once the app is up and running.
+We're copying the aws.prop file to /opt/palqmuist/, so that it can be pick up database properties
+on load. The file is named ROOT.war so that Tomcat can deploy it under the default context.
 
-Once you've copied (using scp) these files, log into AWS, and copy the .war file to /usr/share/tomcat/webapps.
-It will automatically expand the .war file to full directory. The app should now be running at 8080.
+Once you've copied (using scp, as shown above) these files, Tomcat will automatically expand the .war file to full directory.
+The app should now be running at 8080.
+
+The log file is in /tmp/palmquist-logs/debug.log. Use 'cat' or 'tail' to look at the log.
 
 
 Try it
 --------------
 - Hit (for local testing): http://localhost:8080/
 - For local Tomcat: http://localhost:8080/palmquist-1.0.0-SNAPSHOT
-- For AWS Tomcat Instance: http://server:8080
+- For AWS Tomcat Instance: http://server:8080 (e.g., http://10.5.68.174:8080/)

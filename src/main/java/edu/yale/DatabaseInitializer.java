@@ -49,7 +49,7 @@ public class DatabaseInitializer {
 
             // for AWS:
 
-            final String dir =  "/home/ec2-user/aws.prop";  //src/main/resources/db.prop
+            final String dir =  "/opt/palmquist/aws.prop";  //src/main/resources/db.prop
 
             // for brothers:
 
