@@ -49,20 +49,22 @@ public class DatabaseInitializer {
 
             // for AWS:
 
-            final String dir =  "/opt/palmquist/aws.prop";  //src/main/resources/db.prop
+           // final String dir =  "/opt/palmquist/aws.prop";  //src/main/resources/db.prop
+	   InputStream input = getClass().getResourceAsStream("/aws.prop");
 
             // for brothers:
 
             //final String dir =  "src/main/resources/db.prop";
 
-            logger.debug("Looking for db prop file in directory = " + dir);
+            //logger.debug("Looking for db prop file in directory = " + dir);
 
-            InputStream input = new FileInputStream(dir);
+            //InputStream input = new FileInputStream(dir);
             prop.load(input);
             String dbString = prop.getProperty("connection");
             String user = prop.getProperty("user");
             String pwd = prop.getProperty("pwd");
             db = util.populateIndex(dbString, user, pwd);
+	    input.close();
         } catch (Exception e) {
             logger.error("Error connecting to the database", e);
             // throw e;
