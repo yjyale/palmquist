@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>edu.yale</groupId>
-	<artifactId>palmquist</artifactId>
+        <artifactId>palmquist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -87,6 +87,32 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+                        <!-- Yue Ji Added doc directory on 08/01/2018 10:27 AM -->
+                        <plugin>
+                            <artifactId>maven-resources-plugin</artifactId>
+                            <version>3.1.0</version>
+                            <executions>
+                                <execution>
+                                    <id>copy-resources</id>
+                                    <!-- here the phase you need -->
+                                    <phase>validate</phase>
+                                    <goals>
+                                        <goal>copy-resources</goal>
+                                    </goals>
+                                    <configuration>
+                                        <!-- New directory that will be copied from the original directory indicated below in "directory" tag -->
+                                        <outputDirectory>${basedir}/src/main/resources/doc</outputDirectory>
+                                        <resources>          
+                                            <resource>
+                                                <!-- Original directory to be copied -->
+                                                <directory>doc</directory>
+                                                <filtering>true</filtering>
+                                            </resource>
+                                        </resources>              
+                                    </configuration>            
+                                </execution>
+                            </executions>
+                        </plugin>
 		</plugins>
 	</build>
 
