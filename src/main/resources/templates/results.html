@@ -50,7 +50,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
 
   <script>
     function rowClicked(value) {
-      location.href = "/Palmquist/singleitem?id=" + value;
+      location.href = "/palmquist/singleitem?id=" + value;
     }
   </script>
 
@@ -186,7 +186,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                   <div class="field-item even" property="content:encoded">
                                       <h2>Results</h2>
                                       <div>
-                                        <span><a href="/">New Search</a></span>    
+                                        <span><a href="/palmquist">New Search</a></span>    
                                         <div class="scroll">
                                           <span class="scrollTxt">Scroll to see full table &raquo;</span>
                                         </div>
@@ -240,14 +240,14 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                                         <div th:if="${persons.getTotalPages() != 0}" class="form-group col-md-11 pagination-centered">
                                           <ul class="pagination">
                                             <li th:class="${persons.getNumber() == 0} ? disabled">
-                                              <a class="pageLink" th:href="@{/Palmquist/results(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&larr;</a>
+                                              <a class="pageLink" th:href="@{/palmquist/results(pageSize=${selectedPageSize}, page=${persons.getNumber()}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&larr;</a>
                                             </li>
                                             <li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
                                               th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}">
-                                              <a class="pageLink" th:href="@{/Palmquist/results(pageSize=${selectedPageSize}, page=${page}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}" th:text="${page}"></a>
+                                              <a class="pageLink" th:href="@{/palmquist/results(pageSize=${selectedPageSize}, page=${page}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}" th:text="${page}"></a>
                                             </li>
                                             <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled">
-                                              <a class="pageLink" th:href="@{/Palmquist/results(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&rarr;</a>
+                                              <a class="pageLink" th:href="@{/palmquist/results(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, content=${greeting.content}, keywordOption=${greeting.keywordOption})}">&rarr;</a>
                                             </li>
                                           </ul>
                                         </div>

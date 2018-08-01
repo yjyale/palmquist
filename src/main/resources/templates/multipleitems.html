@@ -357,7 +357,7 @@
                                   <div class="field-item even" property="content:encoded">
                                       <h2>Results</h2>
                                       <div>
-                                        <span><a href="/">New Search</a></span>    
+                                        <span><a href="/palmquist">New Search</a></span>    
                                         <div class="scroll">
                                           <span class="scrollTxt">Scroll to see full table &raquo;</span>
                                         </div>
@@ -411,7 +411,7 @@
                                                      class="form-group col-md-11 pagination-centered"> 
                                                     <ul class="pagination">
                                                         <!-- <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/multipleitems(pageSize=${selectedPageSize}, page=1)}">&laquo;</a></li> -->
-                                                        <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/Palmquist/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber()}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}">&larr;</a></li>
+                                                        <li th:class="${persons.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/palmquist/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber()}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}">&larr;</a></li>
                                                         <li th:class="${persons.getNumber() == (page - 1)} ? 'active pointer-disabled'"
                                                             th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/Palmquist/multipleitems(pageSize=${selectedPageSize}, page=${page}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption})}" th:text="${page}"></a></li>
                                                         <li th:class="${persons.getNumber() + 1 == persons.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/Palmquist/multipleitems(pageSize=${selectedPageSize}, page=${persons.getNumber() + 2}, title=${title}, fullName=${fullName}, alias=${alias}, nations=${nations}, cities=${cities}, states=${states}, titleOption=${titleOption}, fullNameOption=${fullNameOption}, aliasOption=${aliasOption}, cityOption=${citiesOption}, stateOption=${statesOption}, nationOption=${nationsOption} )}">&rarr;</a></li>

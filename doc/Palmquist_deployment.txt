@@ -1,0 +1,52 @@
+
+Deploy Palmquist Instructions
+Yue Ji
+June 21, 2018
+
+
+Important:
+
+- The application deployment package always stays on the test server, unless there is the special note.
+
+- Please deploy/re-deploy the Palmquist.war file.
+
+- All data sources, directories, files indicate here are from test server. After deploying or re-deploying to production, these data should be changed to production environment correspondingly (may not be exactly).
+
+- Current TEST server is libapp-test, PRODUCTION server is libapp.
+
+
+Steps:
+
+- The application source code: https://github.com/yalelibrary/palmquist
+
+- The application package is located on TEST server libapp-test: /usr/local/tomcat/webapps/Palmquist
+
+- The server data is configured in /usr/local/tomcat/webapps/Palmquist/WEB-INF/classes/aws.prop.
+
+- Please change the configuration data in the file aws.prop to point to PRODUCTION SQLServer correspondingly. 
+
+- There are no any authorization or authentication requirements. No CAS, no Tomcat Realm
+
+- Deploy Palmquist from TEST server libapp-test to PRODUCTION server libapp:
+
+       1). After the deployment is done, stop Palmquist.
+
+       2). Make above changes in /usr/local/tomcat/webapps/Palmquist/WEB-INF/classes/aws.prop 
+	       (sent production credential via https://files.yale.edu)
+
+       3). Re-Start Palmquist.
+
+
+- Verification procedure.
+
+      Type in corresponding information with following URL in the browser: 
+	  https://libapp.library.yale.edu/Palmquist
+
+      If you see a styled web page with "Palmquist Collection: Women in Photography" showing up, 
+	  and do "Quick Search" in "All of these keywords" drop down list selected, typing a word California,
+      and you see a page with results, the deployment is successful.
+	  
+Note: The word "Palmquist" in this doc is case-sensitive. Please use the exact case that indicated in this doc.
+
+Contact
+- Library IT: Yue Ji [yue.ji@yale.edu]
